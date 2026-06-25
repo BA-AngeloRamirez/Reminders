@@ -3,931 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BA REMINDERS // EXPERIMENTAL LAB</title>
+    <title>PROTOCOL // TERMINAL 02</title>
     
+    <!-- Cybernetic & Editorial Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg: #050505;
-            --surface: #0f0f11;
-            --surface-elevated: #151518;
-            --border: #1e1e24;
-            --text: #ffffff;
-            --text-dim: #62626c;
-            --text-muted: #92929e;
-            --accent: #f4f4f5;
-            --font-display: 'Cinzel', serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            selection-background-color: var(--accent);
-            selection-color: #000000;
+            --bg-cyber: #030304;
+            --panel-cyber: #0b0c10;
+            --border-cyber: #1f222e;
+            --text-cyber: #ffffff;
+            --text-dimmed: #525866;
+            --neon-alert: #ef4444;
+            --neon-safe: #10b981;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            font-family: var(--font-body);
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: var(--font-main);
+            background-color: var(--bg-cyber);
+            color: var(--text-cyber);
             margin: 0;
-            padding: 60px 40px;
+            padding: 40px 20px;
             min-height: 100vh;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Ambient Glow Backdrop Backgrounds */
-        .ambient-glow {
-            position: fixed;
-            top: -200px;
-            right: -200px;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255,255,255,0.015) 0%, rgba(0,0,0,0) 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Editorial Avant-Garde Header */
-        .editorial-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 80px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 30px;
-        }
-
-        .brand-block h1 {
-            font-family: var(--font-display);
-            font-size: 5rem;
-            font-weight: 400;
-            line-height: 0.9;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: -0.03em;
-            background: linear-gradient(90deg, #ffffff, #a1a1aa, #ffffff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textShine 8s linear infinite;
-        }
-
-        @keyframes textShine {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-
-        .brand-meta {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.4em;
-            color: var(--text-dim);
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .brand-meta::before {
-            content: '';
-            width: 30px;
-            height: 1px;
-            background: var(--text-dim);
-            display: inline-block;
-        }
-
-        /* Abstract Floating Kinetic Trigger Button */
-        .kinetic-add-btn {
-            background: var(--accent);
-            color: #000000;
-            border: none;
-            padding: 18px 30px;
-            border-radius: 100px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.05);
-        }
-
-        .kinetic-add-btn:hover {
-            transform: scale(1.05) rotate(-1deg);
-            background: #ffffff;
-            box-shadow: 0 20px 40px rgba(255,255,255,0.12);
-        }
-
-        /* Kinetic Search Input Strip */
-        .search-strip {
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .search-strip input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid var(--border);
-            padding: 20px 0;
-            font-size: 1.8rem;
-            font-weight: 300;
-            color: #ffffff;
-            font-family: var(--font-body);
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .search-strip input:focus {
-            border-color: #ffffff;
-        }
-
-        .search-strip input::placeholder {
-            color: #27272a;
-        }
-
-        /* Asymmetric Horizontal Filter Bar */
-        .filter-ribbon {
-            display: flex;
-            gap: 30px;
-            overflow-x: auto;
-            margin-bottom: 60px;
-            padding-bottom: 15px;
-        }
-
-        .filter-ribbon::-webkit-scrollbar {
-            height: 2px;
-        }
-
-        .filter-ribbon::-webkit-scrollbar-thumb {
-            background: var(--border);
-        }
-
-        .ribbon-item {
-            background: transparent;
-            color: var(--text-dim);
-            border: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 0;
-            white-space: nowrap;
-            transition: color 0.2s ease;
-            font-family: var(--font-body);
-        }
-
-        .ribbon-item:hover, .ribbon-item.active {
-            color: var(--text);
-        }
-
-        .ribbon-item.active {
-            position: relative;
-        }
-
-        .ribbon-item.active::after {
-            content: '●';
-            font-size: 8px;
-            position: absolute;
-            right: -14px;
-            top: 2px;
-            color: var(--text);
-        }
-
-        /* BRUTALIST LIQUID ASYMMETRIC GRID */
-        .brutalist-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 40px;
-        }
-
-        .experimental-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-            min-height: 400px;
-        }
-
-        /* Dynamic layout span generation rules */
-        .experimental-card:nth-child(3n+1) { grid-column: span 7; }
-        .experimental-card:nth-child(3n+2) { grid-column: span 5; }
-        .experimental-card:nth-child(3n+3) { grid-column: span 12; min-height: 320px; }
-
-        @media (max-width: 900px) {
-            .experimental-card { grid-column: span 12 !important; }
-        }
-
-        .experimental-card:hover {
-            background: #121215;
-            border-color: #3f3f46;
-            transform: translateY(-8px);
-        }
-
-        .card-top-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 40px;
-        }
-
-        .abstract-index {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: var(--text-dim);
-        }
-
-        .card-management-tools {
-            display: flex;
-            gap: 10px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .experimental-card:hover .card-management-tools {
-            opacity: 1;
-        }
-
-        .tool-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 0.8rem;
-            transition: all 0.2s ease;
+            overflow: hidden;
+            perspective: 1000px;
         }
 
-        .tool-btn:hover {
-            border-color: #ffffff;
-            color: #ffffff;
-            background: rgba(255,255,255,0.05);
+        /* Ambient Scanning Overlay */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 10;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
         }
 
-        .tool-btn.delete:hover {
-            border-color: #ef4444;
-            color: #ef4444;
-            background: rgba(239,68,68,0.05);
+        /* Dynamic Peripheral Alert Vignette */
+        .vignette-alert {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 100px rgba(239, 68, 68, 0);
+            pointer-events: none;
+            z-index: 5;
+            transition: box-shadow 0.5s ease;
         }
 
-        .card-center-payload h2 {
-            font-size: 2rem;
-            font-weight: 500;
-            line-height: 1.2;
-            margin: 0 0 20px 0;
-            letter-spacing: -0.02em;
-            color: #ffffff;
+        .vignette-alert.active {
+            box-shadow: inset 0 0 120px rgba(239, 68, 68, 0.15);
         }
 
-        .card-center-payload p {
-            font-size: 1rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin: 0 0 40px 0;
-            font-weight: 300;
+        /* Module Frame */
+        .terminal-vault {
+            background: var(--panel-cyber);
+            border: 1px solid var(--border-cyber);
+            width: 100%;
+            max-width: 550px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            transform: rotateX(2deg);
+            transition: border-color 0.4s ease;
         }
 
-        /* Liquid Energy Reaction Container */
-        .kinetic-reactions {
+        .terminal-vault.alert-border {
+            border-color: var(--neon-alert);
+        }
+
+        /* System Header */
+        .vault-header {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed var(--border-cyber);
+            padding-bottom: 20px;
             margin-bottom: 30px;
         }
 
-        .liquid-reaction-btn {
-            background: #131316;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-family: var(--font-body);
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.2s ease;
-        }
-
-        .liquid-reaction-btn::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 0%;
-            background: rgba(255, 255, 255, 0.03);
-            z-index: 1;
-            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .liquid-reaction-btn.filled::before {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .liquid-reaction-btn.filled {
-            border-color: #52525b;
-            color: #ffffff;
-        }
-
-        .liquid-reaction-btn span {
-            position: relative;
-            z-index: 2;
-        }
-
-        .card-bottom-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
-        }
-
-        .luxury-tag {
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        .sys-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
             letter-spacing: 0.2em;
-            color: var(--text-dim);
-        }
-
-        /* Cinematic Immersive Modals */
-        .immersive-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(5, 5, 5, 0.7);
-            backdrop-filter: blur(30px) cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            justify-content: flex-end; /* Slides out from the right side */
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .immersive-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .immersive-panel {
-            background: var(--surface);
-            width: 100%;
-            max-width: 600px;
-            height: 100%;
-            padding: 60px;
-            border-left: 1px solid var(--border);
-            box-shadow: -30px 0 60px rgba(0,0,0,0.8);
-            transform: translateX(100%);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-
-        .immersive-overlay.active .immersive-panel {
-            transform: translateX(0);
-        }
-
-        .panel-close-trigger {
-            background: transparent;
-            border: none;
-            color: var(--text-dim);
-            font-size: 1.5rem;
-            cursor: pointer;
-            align-self: flex-start;
-            margin-bottom: 60px;
-            padding: 0;
-            transition: color 0.2s ease;
-        }
-
-        .panel-close-trigger:hover {
-            color: #ffffff;
-        }
-
-        .immersive-panel h2 {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 400;
+            color: var(--text-dimmed);
             text-transform: uppercase;
-            margin: 0 0 40px 0;
-            letter-spacing: -0.01em;
         }
 
-        .creative-form-group {
-            margin-bottom: 35px;
-        }
-
-        .creative-form-group label {
-            display: block;
+        .status-badge {
+            font-family: var(--font-mono);
             font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 2px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: var(--text-dim);
-            margin-bottom: 12px;
-        }
-
-        .creative-form-group input[type="text"],
-        .creative-form-group textarea,
-        .creative-form-group select {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--border);
-            padding: 12px 0;
-            color: #ffffff;
-            font-family: var(--font-body);
-            font-size: 1.1rem;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .creative-form-group input[type="text"]:focus,
-        .creative-form-group textarea:focus,
-        .creative-form-group select:focus {
-            border-color: #ffffff;
-        }
-
-        .creative-form-group select option {
-            background: var(--surface-elevated);
-            color: white;
-        }
-
-        .checkbox-strip-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-top: 10px;
-        }
-
-        .luxury-checkbox {
             display: flex;
             align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.05);
+            color: var(--neon-safe);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            transition: all 0.3s ease;
         }
 
-        .luxury-checkbox input[type="checkbox"] {
-            accent-color: #ffffff;
-            width: 18px;
-            height: 18px;
+        .status-badge.triggered {
+            background: rgba(239, 68, 68, 0.07);
+            color: var(--neon-alert);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            animation: pulse-red 2s infinite;
         }
 
-        .action-cluster {
-            display: flex;
-            gap: 20px;
-            margin-top: auto;
-            padding-top: 40px;
+        @keyframes pulse-red {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; box-shadow: 0 0 10px rgba(239,68,68,0.2); }
+            100% { opacity: 0.8; }
         }
 
-        .btn-luxury-action {
-            padding: 16px 32px;
-            border-radius: 100px;
-            font-family: var(--font-body);
-            font-weight: 700;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        /* Main Payload Content */
+        .vault-body h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0 0 15px 0;
+            line-height: 1.2;
         }
 
-        .btn-luxury-action.primary {
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            flex-grow: 2;
-        }
-
-        .btn-luxury-action.primary:hover {
-            background: #e4e4e7;
-        }
-
-        .btn-luxury-action.secondary {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-        }
-
-        .btn-luxury-action.secondary:hover {
-            color: #ffffff;
-            border-color: #ffffff;
-        }
-
-        /* Reader System Configuration */
-        .reader-desc-block {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: var(--text-muted);
+        .vault-body p {
+            color: #a3a3a6;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 35px 0;
             font-weight: 300;
-            margin-bottom: 40px;
-            white-space: pre-wrap;
         }
 
-        .reader-tag-cluster {
+        /* Interactive Matrix Simulator Area */
+        .simulator-matrix {
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--border-cyber);
+            padding: 24px;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .sim-header {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-dimmed);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .live-counter {
+            font-family: var(--font-mono);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .live-counter.warn {
+            color: var(--neon-alert);
+        }
+
+        /* Sleek Range Input Customization */
+        .cyber-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: var(--border-cyber);
+            outline: none;
+            margin: 10px 0;
+        }
+
+        .cyber-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #ffffff;
+            cursor: pointer;
+            border-radius: 0; /* Brutalist block look */
+            transition: background 0.2s;
+        }
+
+        .terminal-vault.alert-border .cyber-slider::-webkit-slider-thumb {
+            background: var(--neon-alert);
+        }
+
+        /* Tactical Requirement Panel Alert */
+        .req-panel {
+            margin-top: 15px;
+            padding: 12px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.02);
+            border-left: 2px solid var(--text-dimmed);
+            color: var(--text-dimmed);
+            transition: all 0.3s ease;
+        }
+
+        .req-panel.active {
+            border-left-color: var(--neon-alert);
+            background: rgba(239, 68, 68, 0.03);
+            color: #ffffff;
+        }
+
+        /* Footer System Buttons */
+        .vault-actions {
             display: flex;
             gap: 15px;
-            flex-wrap: wrap;
         }
 
-        .no-data-alert {
-            grid-column: span 12;
-            text-align: center;
-            padding: 100px 0;
-            color: var(--text-dim);
-            font-size: 1.2rem;
-            font-weight: 300;
-            letter-spacing: 0.05em;
+        .action-node-btn {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border-cyber);
+            color: var(--text-cyber);
+            padding: 14px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-node-btn:hover {
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+        }
+
+        .action-node-btn.primary-alert {
+            background: transparent;
+            border-color: var(--border-cyber);
+        }
+
+        .action-node-btn.primary-alert.active-alert-mode {
+            background: var(--neon-alert);
+            color: #ffffff;
+            border-color: var(--neon-alert);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+        }
+        
+        .action-node-btn.primary-alert.active-alert-mode:hover {
+            background: #ff5555;
         }
     </style>
 </head>
 <body>
 
-    <div class="ambient-glow"></div>
+    <div class="vignette-alert" id="vignette"></div>
 
-    <div class="container">
-        <header class="editorial-header">
-            <div class="brand-block">
-                <h1>BA Reminders</h1>
-                <div class="brand-meta" id="dateMeta">Timeline Loading</div>
+    <!-- The Vault Node 02 -->
+    <div class="terminal-vault" id="vaultContainer">
+        <div class="vault-header">
+            <div class="sys-title">Node // Protocol-02</div>
+            <div class="status-badge" id="statusBadge">
+                <i class="fas fa-circle" style="font-size: 6px;"></i> <span id="statusText">System Clear</span>
             </div>
-            <button class="kinetic-add-btn" onclick="openInputPanel()">
-                Create Record <i class="fas fa-arrow-right"></i>
-            </button>
-        </header>
-
-        <div class="search-strip">
-            <input type="text" id="masterSearch" placeholder="Type keywords to filter workspace architecture...">
         </div>
 
-        <div class="filter-ribbon" id="ribbonNav"></div>
-
-        <div class="brutalist-grid" id="workspaceCanvas"></div>
-    </div>
-
-    <div class="immersive-overlay" id="managementPanel">
-        <div class="immersive-panel">
-            <button class="panel-close-trigger" onclick="closeInputPanel()"><i class="fas fa-arrow-left"></i> Close</button>
-            <h2 id="panelTitle">New Record</h2>
+        <div class="vault-body">
+            <h1>Information Change Protocol</h1>
+            <p>Security parameter rule: Verification mapping is exclusively required for email modifications based on liquid capital conditions.</p>
             
-            <form id="recordForm" onsubmit="commitDataToSystem(event)">
-                <input type="hidden" id="recordId">
+            <!-- Real-time Simulator Block -->
+            <div class="simulator-matrix">
+                <div class="sim-header">
+                    <span>Account Balance Simulator</span>
+                    <span>Threshold: $150.00</span>
+                </div>
+                <div class="live-counter" id="liveCounter">$0.00</div>
+                <input type="range" min="0" max="300" value="75" class="cyber-slider" id="balanceSlider">
                 
-                <div class="creative-form-group">
-                    <label>Title Schema</label>
-                    <input type="text" id="inputTitle" required placeholder="Name the operational data link...">
+                <div class="req-panel" id="reqPanel">
+                    <i class="fas fa-shield-halved" id="reqIcon"></i> <span id="reqText">ID Verification Not Required</span>
                 </div>
-
-                <div class="creative-form-group">
-                    <label>Structural Icon Trigger</label>
-                    <select id="inputEmoji">
-                        <option value="💡">Insight / Info 💡</option>
-                        <option value="🎁">Promotions / Matrix 🎁</option>
-                        <option value="⚽">Athletics / Sports ⚽</option>
-                        <option value="🎰">Casino Modules 🎰</option>
-                        <option value="🎟️">Lottery Core 🎟️</option>
-                        <option value="💳">Ingress / Deposits 💳</option>
-                        <option value="💰">Egress / Payouts 💰</option>
-                    </select>
-                </div>
-
-                <div class="creative-form-group">
-                    <label>Data Payload (Information)</label>
-                    <textarea id="inputDesc" required placeholder="Write down the details..." style="height: 100px; resize: none;"></textarea>
-                </div>
-
-                <div class="creative-form-group">
-                    <label>System Node Assignments</label>
-                    <div class="checkbox-strip-grid" id="panelCheckboxes"></div>
-                </div>
-
-                <div class="action-cluster">
-                    <button type="button" class="btn-luxury-action secondary" onclick="closeInputPanel()">Abort</button>
-                    <button type="submit" class="btn-luxury-action primary">Commit System Node</button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
 
-    <div class="immersive-overlay" id="readerPanel">
-        <div class="immersive-panel">
-            <button class="panel-close-trigger" onclick="closeReaderPanel()"><i class="fas fa-arrow-left"></i> Back to Grid</button>
-            <span style="font-size: 3.5rem; margin-bottom: 20px;" id="readerEmoji">💡</span>
-            <h2 id="readerTitle" style="font-family: var(--font-body); text-transform: none; font-size: 2.2rem; font-weight: 600;">Title Data</h2>
-            
-            <div class="reader-desc-block" id="readerDesc">Payload loading...</div>
-            
-            <div class="creative-form-group">
-                <label>Node Registries</label>
-                <div class="reader-tag-cluster" id="readerTags"></div>
-            </div>
-            
-            <div class="action-cluster">
-                <button type="button" class="btn-luxury-action primary" onclick="closeReaderPanel()">Acknowledge Data</button>
-            </div>
+        <div class="vault-actions">
+            <button class="action-node-btn"><i class="fas fa-code-branch"></i> Log Chain</button>
+            <button class="action-node-btn primary-alert" id="actionBtn"><i class="fas fa-id-card"></i> Proceed</button>
         </div>
     </div>
 
     <script>
-        // Set Luxury Format Date
-        const formatOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        document.getElementById('dateMeta').innerText = new Date().toLocaleDateString('en-US', formatOptions);
+        const slider = document.getElementById('balanceSlider');
+        const counter = document.getElementById('liveCounter');
+        const vault = document.getElementById('vaultContainer');
+        const badge = document.getElementById('statusBadge');
+        const statusText = document.getElementById('statusText');
+        const reqPanel = document.getElementById('reqPanel');
+        const reqText = document.getElementById('reqText');
+        const actionBtn = document.getElementById('actionBtn');
+        const vignette = document.getElementById('vignette');
 
-        // Baseline Architectural Data Set
-        const baselinePayloads = [
-            { id: 1, title: "Bank Wire Verification Update", description: "ID and Utility Bill are no longer required for Bank Wire withdrawals. This streamlines processing times significantly for all regional requests.", categories: ["Payouts", "General Info"], emoji: "💰", reactions: { "👍": 5, "🔥": 2, "📌": 1, "👀": 4 } },
-            { id: 2, title: "Information Change Protocol", description: "An ID is required only for email address changes when the available balance is $150 or more. Make sure the documentation matches perfectly.", categories: ["General Info"], emoji: "💡", reactions: { "👍": 1, "🔥": 0, "📌": 8, "👀": 12 } },
-            { id: 3, title: "Bonus Request Exception Update", description: "No exception is needed for bonus requests when the qualifying deposit was made between 24 and 48 hours ago.", categories: ["Bonuses", "Deposits"], emoji: "🎁", reactions: { "👍": 12, "🔥": 19, "📌": 2, "👀": 7 } }
-        ];
+        function evaluateProtocolMetrics(value) {
+            // Update real-time balance layout counter
+            counter.innerText = `$${parseFloat(value).toFixed(2)}`;
 
-        let reminders = JSON.parse(localStorage.getItem('experimental_reminders')) || baselinePayloads;
-
-        const systemCategories = ["Deposits", "Payouts", "General Info", "Bonuses", "Sports", "Casino", "Lotto"];
-        let activeFilter = "All";
-        let localSearchQuery = "";
-
-        const canvas = document.getElementById('workspaceCanvas');
-        const ribbonNav = document.getElementById('ribbonNav');
-        const searchElement = document.getElementById('masterSearch');
-        const inputPanel = document.getElementById('managementPanel');
-        const readerPanel = document.getElementById('readerPanel');
-
-        function startSystem() {
-            buildRibbonFilter();
-            buildCheckboxes();
-            renderWorkspace();
-        }
-
-        function buildRibbonFilter() {
-            ribbonNav.innerHTML = '';
-            ["All", ...systemCategories].forEach(cat => {
-                const item = document.createElement('button');
-                item.className = `ribbon-item ${cat === activeFilter ? 'active' : ''}`;
-                item.textContent = cat;
-                item.onclick = () => {
-                    activeFilter = cat;
-                    buildRibbonFilter();
-                    renderWorkspace();
-                };
-                ribbonNav.appendChild(item);
-            });
-        }
-
-        function buildCheckboxes() {
-            const boxContainer = document.getElementById('panelCheckboxes');
-            boxContainer.innerHTML = '';
-            systemCategories.forEach(cat => {
-                boxContainer.innerHTML += `
-                    <label class="luxury-checkbox">
-                        <input type="checkbox" value="${cat}" class="luxury-cb-node"> ${cat}
-                    </label>
-                `;
-            });
-        }
-
-        function renderWorkspace() {
-            canvas.innerHTML = '';
-            let parsed = reminders;
-
-            if (activeFilter !== "All") {
-                parsed = parsed.filter(node => node.categories.includes(activeFilter));
-            }
-
-            if (localSearchQuery.trim() !== "") {
-                const match = localSearchQuery.toLowerCase();
-                parsed = parsed.filter(node => 
-                    node.title.toLowerCase().includes(match) || 
-                    node.description.toLowerCase().includes(match)
-                );
-            }
-
-            if (parsed.length === 0) {
-                canvas.innerHTML = `<div class="no-data-alert">Null space // No corresponding nodes located</div>`;
-                return;
-            }
-
-            // Map data items in reverse chronological structure
-            [...parsed].reverse().forEach((node, currentIndex) => {
-                const elementCard = document.createElement('div');
-                elementCard.className = 'experimental-card';
+            // Check architectural rules ($150 threshold triggers strict ID requirement)
+            if (value >= 150) {
+                counter.classList.add('warn');
+                vault.classList.add('alert-border');
+                badge.classList.add('triggered');
+                statusText.innerText = "Auth Required";
                 
-                // Deep link event click
-                elementCard.onclick = (e) => {
-                    if (!e.target.closest('.card-management-tools') && !e.target.closest('.kinetic-reactions')) {
-                        openReaderPanel(node.id);
-                    }
-                };
-
-                const indexFormatted = String(parsed.length - currentIndex).padStart(2, '0');
-                const tagChain = node.categories.map(c => `<span class="luxury-tag">${c}</span>`).join(' &nbsp;///&nbsp; ');
-                const reactObject = node.reactions || { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
-
-                // Evaluate reaction highlights
-                const activeR1 = localStorage.getItem(`kin_react_${node.id}_👍`) ? 'filled' : '';
-                const activeR2 = localStorage.getItem(`kin_react_${node.id}_🔥`) ? 'filled' : '';
-                const activeR3 = localStorage.getItem(`kin_react_${node.id}_📌`) ? 'filled' : '';
-                const activeR4 = localStorage.getItem(`kin_react_${node.id}_👀`) ? 'filled' : '';
-
-                elementCard.innerHTML = `
-                    <div class="card-top-row">
-                        <div class="abstract-index">${node.emoji || '💡'} &nbsp; [${indexFormatted}]</div>
-                        <div class="card-management-tools">
-                            <button class="tool-btn" onclick="editSystemNode(${node.id}); event.stopPropagation();" title="Edit Schema"><i class="fas fa-sliders"></i></button>
-                            <button class="tool-btn delete" onclick="destroySystemNode(${node.id}); event.stopPropagation();" title="Wipe Data"><i class="fas fa-trash-can"></i></button>
-                        </div>
-                    </div>
-                    <div class="card-center-payload">
-                        <h2>${node.title}</h2>
-                        <p>${node.description}</p>
-                    </div>
-                    <div>
-                        <div class="kinetic-reactions">
-                            <button class="liquid-reaction-btn ${activeR1}" onclick="fireReaction(${node.id}, '👍'); event.stopPropagation();">
-                                <span>👍</span> <span>${reactObject['👍'] || 0}</span>
-                            </button>
-                            <button class="liquid-reaction-btn ${activeR2}" onclick="fireReaction(${node.id}, '🔥'); event.stopPropagation();">
-                                <span>🔥</span> <span>${reactObject['🔥'] || 0}</span>
-                            </button>
-                            <button class="liquid-reaction-btn ${activeR3}" onclick="fireReaction(${node.id}, '📌'); event.stopPropagation();">
-                                <span>📌</span> <span>${reactObject['📌'] || 0}</span>
-                            </button>
-                            <button class="liquid-reaction-btn ${activeR4}" onclick="fireReaction(${node.id}, '👀'); event.stopPropagation();">
-                                <span>👀</span> <span>${reactObject['👀'] || 0}</span>
-                            </button>
-                        </div>
-                        <div class="card-bottom-tags">
-                            ${tagChain}
-                        </div>
-                    </div>
-                `;
-                canvas.appendChild(elementCard);
-            });
+                reqPanel.classList.add('active');
+                reqText.innerText = "CRITICAL: Valid ID Verification Mandated";
+                
+                actionBtn.classList.add('active-alert-mode');
+                vignette.classList.add('active');
+            } else {
+                counter.classList.remove('warn');
+                vault.classList.remove('alert-border');
+                badge.classList.remove('triggered');
+                statusText.innerText = "System Clear";
+                
+                reqPanel.classList.remove('active');
+                reqText.innerText = "ID Verification Not Required";
+                
+                actionBtn.classList.remove('active-alert-mode');
+                vignette.classList.remove('active');
+            }
         }
 
-        searchElement.addEventListener('input', (e) => {
-            localSearchQuery = e.target.value;
-            renderWorkspace();
+        // Real-time Event Listener Matrix
+        slider.addEventListener('input', (e) => {
+            evaluateProtocolMetrics(e.target.value);
         });
 
-        function fireReaction(id, key) {
-            const index = reminders.findIndex(r => r.id === id);
-            if (index !== -1) {
-                if (!reminders[index].reactions) {
-                    reminders[index].reactions = { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
-                }
-
-                const internalKey = `kin_react_${id}_${key}`;
-                const matchedActiveState = localStorage.getItem(internalKey);
-
-                if (matchedActiveState) {
-                    reminders[index].reactions[key] = Math.max(0, (reminders[index].reactions[key] || 1) - 1);
-                    localStorage.removeItem(internalKey);
-                } else {
-                    reminders[index].reactions[key] = (reminders[index].reactions[key] || 0) + 1;
-                    localStorage.setItem(internalKey, 'true');
-                }
-
-                syncStorage();
-                renderWorkspace();
-            }
-        }
-
-        function openInputPanel() {
-            document.getElementById('recordForm').reset();
-            document.getElementById('recordId').value = '';
-            document.getElementById('inputEmoji').value = '💡';
-            document.getElementById('panelTitle').innerText = "New Record";
-            
-            document.querySelectorAll('.luxury-cb-node').forEach(cb => cb.checked = false);
-            inputPanel.classList.add('active');
-        }
-
-        function closeInputPanel() {
-            inputPanel.classList.remove('active');
-        }
-
-        function openReaderPanel(id) {
-            const target = reminders.find(r => r.id === id);
-            if (target) {
-                document.getElementById('readerEmoji').innerText = target.emoji || '💡';
-                document.getElementById('readerTitle').innerText = target.title;
-                document.getElementById('readerDesc').innerText = target.description;
-                
-                const tagsField = document.getElementById('readerTags');
-                tagsField.innerHTML = target.categories.map(c => `<span class="luxury-tag" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 6px 14px; border-radius: 4px;">${c}</span>`).join('');
-                
-                readerPanel.classList.add('active');
-            }
-        }
-
-        function closeReaderPanel() {
-            readerPanel.classList.remove('active');
-        }
-
-        function editSystemNode(id) {
-            const node = reminders.find(r => r.id === id);
-            if (node) {
-                document.getElementById('recordId').value = node.id;
-                document.getElementById('inputTitle').value = node.title;
-                document.getElementById('inputDesc').value = node.description;
-                document.getElementById('inputEmoji').value = node.emoji || '💡';
-                document.getElementById('panelTitle').innerText = "Edit Config Schema";
-                
-                document.querySelectorAll('.luxury-cb-node').forEach(cb => {
-                    cb.checked = node.categories.includes(cb.value);
-                });
-                inputPanel.classList.add('active');
-            }
-        }
-
-        function destroySystemNode(id) {
-            if (confirm("Execute data wipe sequence on this structural node?")) {
-                reminders = reminders.filter(r => r.id !== id);
-                ['👍', '🔥', '📌', '👀'].forEach(k => localStorage.removeItem(`kin_react_${id}_${k}`));
-                syncStorage();
-                renderWorkspace();
-            }
-        }
-
-        function commitDataToSystem(event) {
-            event.preventDefault();
-            const id = document.getElementById('recordId').value;
-            const title = document.getElementById('inputTitle').value;
-            const description = document.getElementById('inputDesc').value;
-            const emoji = document.getElementById('inputEmoji').value;
-            
-            const activeChecks = document.querySelectorAll('.luxury-cb-node:checked');
-            const parsedCategories = Array.from(activeChecks).map(cb => cb.value);
-
-            if (parsedCategories.length === 0) {
-                alert("Data architecture rule: Select at least one operational category node.");
-                return;
-            }
-
-            if (id) {
-                const targetIdx = reminders.findIndex(r => r.id == id);
-                const historicalReacts = reminders[targetIdx].reactions || { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
-                reminders[targetIdx] = { id: parseInt(id), title, description, categories: parsedCategories, emoji, reactions: historicalReacts };
-            } else {
-                reminders.push({ 
-                    id: Date.now(), 
-                    title, 
-                    description, 
-                    categories: parsedCategories, 
-                    emoji, 
-                    reactions: { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 } 
-                });
-            }
-
-            syncStorage();
-            closeInputPanel();
-            renderWorkspace();
-        }
-
-        function syncStorage() {
-            localStorage.setItem('experimental_reminders', JSON.stringify(reminders));
-        }
-
-        // Ignition
-        startSystem();
+        // Initialize at custom baseline value ($75)
+        evaluateProtocolMetrics(slider.value);
     </script>
 </body>
 </html>
