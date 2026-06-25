@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROTOCOL // TERMINAL 02</title>
+    <title>SECURITY TERMINAL // PROTOCOL ENGINE 02</title>
     
     <!-- Cybernetic & Editorial Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
             --bg-cyber: #030304;
             --panel-cyber: #0b0c10;
+            --surface-elevated: #12131a;
             --border-cyber: #1f222e;
             --text-cyber: #ffffff;
             --text-dimmed: #525866;
+            --text-muted: #92929e;
             --neon-alert: #ef4444;
             --neon-safe: #10b981;
             --font-mono: 'JetBrains Mono', monospace;
             --font-main: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -29,129 +35,429 @@
             background-color: var(--bg-cyber);
             color: var(--text-cyber);
             margin: 0;
-            padding: 40px 20px;
+            padding: 60px 40px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            perspective: 1000px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Ambient Scanning Overlay */
+        /* Ambient Scanning Lines Overlay */
         body::before {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
             z-index: 10;
-            background-size: 100% 4px, 6px 100%;
+            background-size: 100% 4px;
             pointer-events: none;
         }
 
-        /* Dynamic Peripheral Alert Vignette */
         .vignette-alert {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             box-shadow: inset 0 0 100px rgba(239, 68, 68, 0);
             pointer-events: none;
             z-index: 5;
-            transition: box-shadow 0.5s ease;
+            transition: box-shadow 0.4s ease;
         }
 
         .vignette-alert.active {
-            box-shadow: inset 0 0 120px rgba(239, 68, 68, 0.15);
+            box-shadow: inset 0 0 120px rgba(239, 68, 68, 0.2);
         }
 
-        /* Module Frame */
-        .terminal-vault {
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Cyberpunk Tactical Header */
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--border-cyber);
+            padding-bottom: 25px;
+        }
+
+        .brand-block h1 {
+            font-family: var(--font-mono);
+            font-size: 2.2rem;
+            font-weight: 500;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+        }
+
+        .brand-meta {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--text-dimmed);
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .action-trigger-btn {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 14px 28px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-trigger-btn:hover {
+            background: var(--neon-safe);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Tactical Search Interface Strip */
+        .search-strip {
+            margin-bottom: 45px;
+        }
+
+        .search-strip input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--border-cyber);
+            padding: 15px 0;
+            font-size: 1.4rem;
+            color: #ffffff;
+            font-family: var(--font-main);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-strip input:focus {
+            border-color: #ffffff;
+        }
+
+        .search-strip input::placeholder {
+            color: #222530;
+        }
+
+        /* Ribbon Filter System */
+        .filter-ribbon {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            margin-bottom: 50px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(255,255,255,0.02);
+        }
+
+        .ribbon-item {
+            background: transparent;
+            color: var(--text-dimmed);
+            border: none;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 0;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+
+        .ribbon-item:hover, .ribbon-item.active {
+            color: var(--text-cyber);
+        }
+
+        .ribbon-item.active {
+            color: var(--neon-safe);
+        }
+
+        /* Cyber Grid Architecture Layout */
+        .brutalist-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 30px;
+        }
+
+        .experimental-card {
             background: var(--panel-cyber);
             border: 1px solid var(--border-cyber);
-            width: 100%;
-            max-width: 550px;
-            padding: 40px;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             position: relative;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-            transform: rotateX(2deg);
-            transition: border-color 0.4s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 380px;
         }
 
-        .terminal-vault.alert-border {
-            border-color: var(--neon-alert);
+        .experimental-card:nth-child(3n+1) { grid-column: span 7; }
+        .experimental-card:nth-child(3n+2) { grid-column: span 5; }
+        .experimental-card:nth-child(3n+3) { grid-column: span 12; min-height: 280px; }
+
+        @media (max-width: 900px) {
+            .experimental-card { grid-column: span 12 !important; }
         }
 
-        /* System Header */
-        .vault-header {
+        .experimental-card:hover {
+            border-color: #3f4456;
+            background: #0f1015;
+            transform: translateY(-4px);
+        }
+
+        .card-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px dashed var(--border-cyber);
-            padding-bottom: 20px;
             margin-bottom: 30px;
         }
 
-        .sys-title {
+        .abstract-index {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
+            font-size: 0.8rem;
             color: var(--text-dimmed);
-            text-transform: uppercase;
         }
 
-        .status-badge {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            border-radius: 2px;
-            font-weight: 700;
-            text-transform: uppercase;
+        .card-management-tools {
             display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .experimental-card:hover .card-management-tools {
+            opacity: 1;
+        }
+
+        .tool-btn {
+            background: transparent;
+            border: 1px solid var(--border-cyber);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 6px;
-            background: rgba(16, 185, 129, 0.05);
-            color: var(--neon-safe);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
         }
 
-        .status-badge.triggered {
-            background: rgba(239, 68, 68, 0.07);
+        .tool-btn:hover {
+            border-color: #ffffff;
+            color: #ffffff;
+        }
+
+        .tool-btn.delete:hover {
+            border-color: var(--neon-alert);
             color: var(--neon-alert);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            animation: pulse-red 2s infinite;
+            background: rgba(239,68,68,0.05);
         }
 
-        @keyframes pulse-red {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; box-shadow: 0 0 10px rgba(239,68,68,0.2); }
-            100% { opacity: 0.8; }
-        }
-
-        /* Main Payload Content */
-        .vault-body h1 {
-            font-size: 2rem;
+        .card-center-payload h2 {
+            font-size: 1.6rem;
             font-weight: 600;
-            letter-spacing: -0.02em;
+            line-height: 1.3;
             margin: 0 0 15px 0;
-            line-height: 1.2;
+            letter-spacing: -0.01em;
+            color: #ffffff;
         }
 
-        .vault-body p {
-            color: #a3a3a6;
+        .card-center-payload p {
             font-size: 0.95rem;
+            color: var(--text-muted);
             line-height: 1.6;
-            margin: 0 0 35px 0;
+            margin: 0 0 30px 0;
             font-weight: 300;
         }
 
-        /* Interactive Matrix Simulator Area */
+        /* Kinetic Reactions System */
+        .kinetic-reactions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .liquid-reaction-btn {
+            background: #111217;
+            border: 1px solid var(--border-cyber);
+            color: var(--text-dimmed);
+            padding: 6px 14px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .liquid-reaction-btn.filled {
+            border-color: #525866;
+            color: #ffffff;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .card-bottom-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            border-top: 1px dashed var(--border-cyber);
+            padding-top: 15px;
+        }
+
+        .luxury-tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--text-dimmed);
+        }
+
+        /* Immersive Lateral Overlays */
+        .immersive-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 3, 4, 0.8);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: flex-end;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .immersive-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .immersive-panel {
+            background: var(--panel-cyber);
+            width: 100%;
+            max-width: 580px;
+            height: 100%;
+            padding: 50px;
+            border-left: 1px solid var(--border-cyber);
+            box-shadow: -20px 0 50px rgba(0,0,0,0.8);
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .immersive-overlay.active .immersive-panel {
+            transform: translateX(0);
+        }
+
+        .panel-close-trigger {
+            background: transparent;
+            border: none;
+            color: var(--text-dimmed);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            align-self: flex-start;
+            margin-bottom: 40px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-close-trigger:hover {
+            color: #ffffff;
+        }
+
+        .immersive-panel h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0 0 35px 0;
+        }
+
+        /* Form Layout Nodes */
+        .creative-form-group {
+            margin-bottom: 30px;
+        }
+
+        .creative-form-group label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-dimmed);
+            margin-bottom: 10px;
+        }
+
+        .creative-form-group input[type="text"],
+        .creative-form-group textarea,
+        .creative-form-group select {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-cyber);
+            padding: 10px 0;
+            color: #ffffff;
+            font-family: var(--font-main);
+            font-size: 1.05rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .creative-form-group input[type="text"]:focus,
+        .creative-form-group textarea:focus,
+        .creative-form-group select:focus {
+            border-color: #ffffff;
+        }
+
+        .creative-form-group select option {
+            background: var(--surface-elevated);
+            color: white;
+        }
+
+        .checkbox-strip-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .luxury-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .luxury-checkbox input[type="checkbox"] {
+            accent-color: var(--neon-safe);
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Interactive Simulator Module (Embedded in Reader View) */
         .simulator-matrix {
             background: rgba(255,255,255,0.01);
             border: 1px solid var(--border-cyber);
             padding: 24px;
-            margin-bottom: 35px;
+            margin: 30px 0;
             position: relative;
+            display: none; /* Only activated dynamically for Node 2 */
         }
 
         .sim-header {
@@ -161,7 +467,7 @@
             font-size: 0.7rem;
             color: var(--text-dimmed);
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .live-counter {
@@ -169,72 +475,47 @@
             font-size: 1.8rem;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 20px;
-            transition: color 0.3s ease;
+            margin-bottom: 15px;
         }
 
-        .live-counter.warn {
-            color: var(--neon-alert);
-        }
+        .live-counter.warn { color: var(--neon-alert); }
 
-        /* Sleek Range Input Customization */
         .cyber-slider {
             -webkit-appearance: none;
-            width: 100%;
-            height: 4px;
+            width: 100%; height: 4px;
             background: var(--border-cyber);
-            outline: none;
-            margin: 10px 0;
+            outline: none; margin: 10px 0;
         }
 
         .cyber-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            background: #ffffff;
-            cursor: pointer;
-            border-radius: 0; /* Brutalist block look */
-            transition: background 0.2s;
+            width: 14px; height: 14px;
+            background: #ffffff; cursor: pointer;
         }
 
-        .terminal-vault.alert-border .cyber-slider::-webkit-slider-thumb {
-            background: var(--neon-alert);
-        }
-
-        /* Tactical Requirement Panel Alert */
         .req-panel {
-            margin-top: 15px;
-            padding: 12px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255,255,255,0.02);
-            border-left: 2px solid var(--text-dimmed);
+            margin-top: 15px; padding: 12px;
+            font-family: var(--font-mono); font-size: 0.75rem;
+            text-transform: uppercase; display: flex; align-items: center; gap: 10px;
+            background: rgba(255,255,255,0.02); border-left: 2px solid var(--text-dimmed);
             color: var(--text-dimmed);
-            transition: all 0.3s ease;
         }
 
         .req-panel.active {
             border-left-color: var(--neon-alert);
-            background: rgba(239, 68, 68, 0.03);
-            color: #ffffff;
+            background: rgba(239, 68, 68, 0.03); color: #ffffff;
         }
 
-        /* Footer System Buttons */
-        .vault-actions {
+        /* Action Controls Layout */
+        .action-cluster {
             display: flex;
             gap: 15px;
+            margin-top: auto;
+            padding-top: 30px;
         }
 
-        .action-node-btn {
-            flex: 1;
-            background: transparent;
-            border: 1px solid var(--border-cyber);
-            color: var(--text-cyber);
-            padding: 14px;
+        .btn-luxury-action {
+            padding: 14px 28px;
             font-family: var(--font-mono);
             font-size: 0.75rem;
             font-weight: 700;
@@ -242,32 +523,28 @@
             letter-spacing: 0.1em;
             cursor: pointer;
             transition: all 0.2s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
+            border: 1px solid var(--border-cyber);
         }
 
-        .action-node-btn:hover {
+        .btn-luxury-action.primary {
             background: #ffffff;
             color: #000000;
-            border-color: #ffffff;
+            border: none;
+            flex-grow: 2;
         }
 
-        .action-node-btn.primary-alert {
-            background: transparent;
-            border-color: var(--border-cyber);
-        }
+        .btn-luxury-action.primary:hover { background: #e4e4e7; }
+        .btn-luxury-action.secondary { background: transparent; color: var(--text-muted); }
+        .btn-luxury-action.secondary:hover { color: #ffffff; border-color: #ffffff; }
 
-        .action-node-btn.primary-alert.active-alert-mode {
-            background: var(--neon-alert);
-            color: #ffffff;
-            border-color: var(--neon-alert);
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
-        }
-        
-        .action-node-btn.primary-alert.active-alert-mode:hover {
-            background: #ff5555;
+        .no-data-alert {
+            grid-column: span 12;
+            text-align: center;
+            padding: 80px 0;
+            color: var(--text-dimmed);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            text-transform: uppercase;
         }
     </style>
 </head>
@@ -275,88 +552,405 @@
 
     <div class="vignette-alert" id="vignette"></div>
 
-    <!-- The Vault Node 02 -->
-    <div class="terminal-vault" id="vaultContainer">
-        <div class="vault-header">
-            <div class="sys-title">Node // Protocol-02</div>
-            <div class="status-badge" id="statusBadge">
-                <i class="fas fa-circle" style="font-size: 6px;"></i> <span id="statusText">System Clear</span>
+    <div class="container">
+        <!-- Structural Navigation Top Row -->
+        <header class="terminal-header">
+            <div class="brand-block">
+                <h1>BA Security Reminders</h1>
+                <div class="brand-meta" id="dateMeta">SYSTEM ENGAGED</div>
             </div>
+            <button class="action-trigger-btn" onclick="openInputPanel()">
+                + Create Registry Node
+            </button>
+        </header>
+
+        <!-- Live Core Filtering Matrix -->
+        <div class="search-strip">
+            <input type="text" id="masterSearch" placeholder="Type core signature matrix parameters to isolate nodes...">
         </div>
 
-        <div class="vault-body">
-            <h1>Information Change Protocol</h1>
-            <p>Security parameter rule: Verification mapping is exclusively required for email modifications based on liquid capital conditions.</p>
+        <div class="filter-ribbon" id="ribbonNav"></div>
+
+        <!-- Canvas Deployment Pipeline Grid -->
+        <div class="brutalist-grid" id="workspaceCanvas"></div>
+    </div>
+
+    <!-- Data Injection Form Sidebar Panel -->
+    <div class="immersive-overlay" id="managementPanel">
+        <div class="immersive-panel">
+            <button class="panel-close-trigger" onclick="closeInputPanel()"><i class="fas fa-arrow-left"></i> Abort</button>
+            <h2 id="panelTitle">New Record Configuration</h2>
             
-            <!-- Real-time Simulator Block -->
-            <div class="simulator-matrix">
-                <div class="sim-header">
-                    <span>Account Balance Simulator</span>
-                    <span>Threshold: $150.00</span>
-                </div>
-                <div class="live-counter" id="liveCounter">$0.00</div>
-                <input type="range" min="0" max="300" value="75" class="cyber-slider" id="balanceSlider">
+            <form id="recordForm" onsubmit="commitDataToSystem(event)">
+                <input type="hidden" id="recordId">
                 
-                <div class="req-panel" id="reqPanel">
-                    <i class="fas fa-shield-halved" id="reqIcon"></i> <span id="reqText">ID Verification Not Required</span>
+                <div class="creative-form-group">
+                    <label>Title Identifier</label>
+                    <input type="text" id="inputTitle" required placeholder="Inject operational node label...">
                 </div>
-            </div>
-        </div>
 
-        <div class="vault-actions">
-            <button class="action-node-btn"><i class="fas fa-code-branch"></i> Log Chain</button>
-            <button class="action-node-btn primary-alert" id="actionBtn"><i class="fas fa-id-card"></i> Proceed</button>
+                <div class="creative-form-group">
+                    <label>System Parameter Trigger Symbol</label>
+                    <select id="inputEmoji">
+                        <option value="💡">Insight Info Node 💡</option>
+                        <option value="🎁">Promotional Matrix 🎁</option>
+                        <option value="⚽">Athletics Module ⚽</option>
+                        <option value="🎰">Casino Core Terminal 🎰</option>
+                        <option value="🎟️">Lottery Architecture 🎟️</option>
+                        <option value="💳">Deposit Vault Node 💳</option>
+                        <option value="💰">Payout Ledger Target 💰</option>
+                    </select>
+                </div>
+
+                <div class="creative-form-group">
+                    <label>Detailed Data Payload</label>
+                    <textarea id="inputDesc" required placeholder="Write down the operational logs or reminder content details..." style="height: 120px; resize: none;"></textarea>
+                </div>
+
+                <div class="creative-form-group">
+                    <label>Network Routing Node Vectors</label>
+                    <div class="checkbox-strip-grid" id="panelCheckboxes"></div>
+                </div>
+
+                <div class="action-cluster">
+                    <button type="button" class="btn-luxury-action secondary" onclick="closeInputPanel()">Kill Process</button>
+                    <button type="submit" class="btn-luxury-action primary">Deploy Node</button>
+                </div>
+            </form>
         </div>
     </div>
 
+    <!-- Advanced Reader / Interrogator Dynamic Panel -->
+    <div class="immersive-overlay" id="readerPanel">
+        <div class="immersive-panel">
+            <button class="panel-close-trigger" onclick="closeReaderPanel()"><i class="fas fa-arrow-left"></i> Grid View</button>
+            <span style="font-size: 3rem; margin-bottom: 20px;" id="readerEmoji">💡</span>
+            <h2 id="readerTitle" style="font-size: 2rem; font-weight: 600; margin-bottom: 15px;">Payload Header</h2>
+            
+            <!-- Complete Description Vector Block -->
+            <div style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); font-weight: 300; margin-bottom: 30px; white-space: pre-wrap;" id="readerDesc">Payload loading...</div>
+            
+            <!-- Real-time Dynamic Simulation Sub-module (Injected dynamically for target validation) -->
+            <div class="simulator-matrix" id="embeddedSimulator">
+                <div class="sim-header">
+                    <span>Account Balance Rule Interrogator</span>
+                    <span>Rule Trigger: $150.00</span>
+                </div>
+                <div class="live-counter" id="liveCounter">$75.00</div>
+                <input type="range" min="0" max="300" value="75" class="cyber-slider" id="balanceSlider">
+                <div class="req-panel" id="reqPanel">
+                    <i class="fas fa-shield-halved"></i> <span id="reqText">ID Verification Clearance Valid</span>
+                </div>
+            </div>
+
+            <div class="creative-form-group">
+                <label>Node Routing Assignments</label>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;" id="readerTags"></div>
+            </div>
+            
+            <div class="action-cluster">
+                <button type="button" class="btn-luxury-action primary" style="width: 100%;" onclick="closeReaderPanel()">Acknowledge Data Core</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic Engine Script Framework -->
     <script>
+        // Set Date Log Signature
+        const formatOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        document.getElementById('dateMeta').innerText = `SYSTEM ACTIVE // ${new Date().toLocaleDateString('en-US', formatOptions).toUpperCase()}`;
+
+        // Complete Original Informational Database Maintained
+        const corePayloadArray = [
+            { id: 1, title: "Bank Wire Verification Update", description: "ID and Utility Bill are no longer required for Bank Wire withdrawals. This streamlines processing times significantly for all regional requests.", categories: ["Payouts", "General Info"], emoji: "💰", reactions: { "👍": 5, "🔥: 2", "📌": 1, "👀": 4 } },
+            { id: 2, title: "Information Change Protocol", description: "An ID is required only for email address changes when the available balance is $150 or more. Make sure the documentation matches perfectly.", categories: ["General Info"], emoji: "💡", reactions: { "👍": 2, "🔥": 1, "📌": 14, "👀": 23 } },
+            { id: 3, title: "Bonus Request Exception Update", description: "No exception is needed for bonus requests when the qualifying deposit was made between 24 and 48 hours ago.", categories: ["Bonuses", "Deposits"], emoji: "🎁", reactions: { "👍": 15, "🔥": 22, "📌": 4, "👀": 9 } }
+        ];
+
+        let reminders = JSON.parse(localStorage.getItem('cyber_reminders')) || corePayloadArray;
+
+        const systemCategories = ["Deposits", "Payouts", "General Info", "Bonuses", "Sports", "Casino", "Lotto"];
+        let activeFilter = "All";
+        let localSearchQuery = "";
+
+        const canvas = document.getElementById('workspaceCanvas');
+        const ribbonNav = document.getElementById('ribbonNav');
+        const searchElement = document.getElementById('masterSearch');
+        const inputPanel = document.getElementById('managementPanel');
+        const readerPanel = document.getElementById('readerPanel');
+
+        // Embedded Simulator Node UI Elements
         const slider = document.getElementById('balanceSlider');
         const counter = document.getElementById('liveCounter');
-        const vault = document.getElementById('vaultContainer');
-        const badge = document.getElementById('statusBadge');
-        const statusText = document.getElementById('statusText');
         const reqPanel = document.getElementById('reqPanel');
         const reqText = document.getElementById('reqText');
-        const actionBtn = document.getElementById('actionBtn');
         const vignette = document.getElementById('vignette');
 
-        function evaluateProtocolMetrics(value) {
-            // Update real-time balance layout counter
-            counter.innerText = `$${parseFloat(value).toFixed(2)}`;
+        function startSystem() {
+            buildRibbonFilter();
+            buildCheckboxes();
+            renderWorkspace();
+            setupSimulatorEngine();
+        }
 
-            // Check architectural rules ($150 threshold triggers strict ID requirement)
+        function buildRibbonFilter() {
+            ribbonNav.innerHTML = '';
+            ["All", ...systemCategories].forEach(cat => {
+                const item = document.createElement('button');
+                item.className = `ribbon-item ${cat === activeFilter ? 'active' : ''}`;
+                item.textContent = cat;
+                item.onclick = () => {
+                    activeFilter = cat;
+                    buildRibbonFilter();
+                    renderWorkspace();
+                };
+                ribbonNav.appendChild(item);
+            });
+        }
+
+        function buildCheckboxes() {
+            const boxContainer = document.getElementById('panelCheckboxes');
+            boxContainer.innerHTML = '';
+            systemCategories.forEach(cat => {
+                boxContainer.innerHTML += `
+                    <label class="luxury-checkbox">
+                        <input type="checkbox" value="${cat}" class="luxury-cb-node"> ${cat}
+                    </label>
+                `;
+            });
+        }
+
+        function renderWorkspace() {
+            canvas.innerHTML = '';
+            let parsed = reminders;
+
+            if (activeFilter !== "All") {
+                parsed = parsed.filter(node => node.categories.includes(activeFilter));
+            }
+
+            if (localSearchQuery.trim() !== "") {
+                const match = localSearchQuery.toLowerCase();
+                parsed = parsed.filter(node => 
+                    node.title.toLowerCase().includes(match) || 
+                    node.description.toLowerCase().includes(match)
+                );
+            }
+
+            if (parsed.length === 0) {
+                canvas.innerHTML = `<div class="no-data-alert">Matrix Empty // Zero matching operational records isolated</div>`;
+                return;
+            }
+
+            [...parsed].reverse().forEach((node, currentIndex) => {
+                const elementCard = document.createElement('div');
+                elementCard.className = 'experimental-card';
+                
+                elementCard.onclick = (e) => {
+                    if (!e.target.closest('.card-management-tools') && !e.target.closest('.kinetic-reactions')) {
+                        openReaderPanel(node.id);
+                    }
+                };
+
+                const indexFormatted = String(parsed.length - currentIndex).padStart(2, '0');
+                const tagChain = node.categories.map(c => `<span class="luxury-tag">${c}</span>`).join(' // ');
+                const reactObject = node.reactions || { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
+
+                const activeR1 = localStorage.getItem(`cyb_react_${node.id}_👍`) ? 'filled' : '';
+                const activeR2 = localStorage.getItem(`cyb_react_${node.id}_🔥`) ? 'filled' : '';
+                const activeR3 = localStorage.getItem(`cyb_react_${node.id}_📌`) ? 'filled' : '';
+                const activeR4 = localStorage.getItem(`cyb_react_${node.id}_👀`) ? 'filled' : '';
+
+                elementCard.innerHTML = `
+                    <div class="card-top-row">
+                        <div class="abstract-index">${node.emoji || '💡'} &nbsp; NODE // [${indexFormatted}]</div>
+                        <div class="card-management-tools">
+                            <button class="tool-btn" onclick="editSystemNode(${node.id}); event.stopPropagation();" title="Edit Properties"><i class="fas fa-sliders"></i></button>
+                            <button class="tool-btn delete" onclick="destroySystemNode(${node.id}); event.stopPropagation();" title="Purge Record"><i class="fas fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-center-payload">
+                        <h2>${node.title}</h2>
+                        <p>${node.description}</p>
+                    </div>
+                    <div>
+                        <div class="kinetic-reactions">
+                            <button class="liquid-reaction-btn ${activeR1}" onclick="fireReaction(${node.id}, '👍'); event.stopPropagation();">
+                                <span>👍</span> <span>${reactObject['👍'] || 0}</span>
+                            </button>
+                            <button class="liquid-reaction-btn ${activeR2}" onclick="fireReaction(${node.id}, '🔥'); event.stopPropagation();">
+                                <span>🔥</span> <span>${reactObject['🔥'] || 0}</span>
+                            </button>
+                            <button class="liquid-reaction-btn ${activeR3}" onclick="fireReaction(${node.id}, '📌'); event.stopPropagation();">
+                                <span>📌</span> <span>${reactObject['📌'] || 0}</span>
+                            </button>
+                            <button class="liquid-reaction-btn ${activeR4}" onclick="fireReaction(${node.id}, '👀'); event.stopPropagation();">
+                                <span>👀</span> <span>${reactObject['👀'] || 0}</span>
+                            </button>
+                        </div>
+                        <div class="card-bottom-tags">
+                            ${tagChain}
+                        </div>
+                    </div>
+                `;
+                canvas.appendChild(elementCard);
+            });
+        }
+
+        searchElement.addEventListener('input', (e) => {
+            localSearchQuery = e.target.value;
+            renderWorkspace();
+        });
+
+        function fireReaction(id, key) {
+            const index = reminders.findIndex(r => r.id === id);
+            if (index !== -1) {
+                if (!reminders[index].reactions) {
+                    reminders[index].reactions = { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
+                }
+
+                const storageKey = `cyb_react_${id}_${key}`;
+                if (localStorage.getItem(storageKey)) {
+                    reminders[index].reactions[key] = Math.max(0, (reminders[index].reactions[key] || 1) - 1);
+                    localStorage.removeItem(storageKey);
+                } else {
+                    reminders[index].reactions[key] = (reminders[index].reactions[key] || 0) + 1;
+                    localStorage.setItem(storageKey, 'true');
+                }
+
+                syncStorage();
+                renderWorkspace();
+            }
+        }
+
+        function openInputPanel() {
+            document.getElementById('recordForm').reset();
+            document.getElementById('recordId').value = '';
+            document.getElementById('inputEmoji').value = '💡';
+            document.getElementById('panelTitle').innerText = "Configure System Registry Node";
+            document.querySelectorAll('.luxury-cb-node').forEach(cb => cb.checked = false);
+            inputPanel.classList.add('active');
+        }
+
+        function closeInputPanel() {
+            inputPanel.classList.remove('active');
+        }
+
+        function openReaderPanel(id) {
+            const target = reminders.find(r => r.id === id);
+            if (target) {
+                document.getElementById('readerEmoji').innerText = target.emoji || '💡';
+                document.getElementById('readerTitle').innerText = target.title;
+                document.getElementById('readerDesc').innerText = target.description;
+                
+                const tagsField = document.getElementById('readerTags');
+                tagsField.innerHTML = target.categories.map(c => `<span class="luxury-tag" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-cyber); padding: 5px 12px;">${c}</span>`).join('');
+                
+                // Show interactive simulator strictly for the Information Change Protocol node (Node 2)
+                const embedSim = document.getElementById('embeddedSimulator');
+                if (id === 2 || target.title.toLowerCase().includes("information change")) {
+                    embedSim.style.display = "block";
+                    evaluateLiveMetrics(slider.value);
+                } else {
+                    embedSim.style.display = "none";
+                    vignette.classList.remove('active');
+                }
+
+                readerPanel.classList.add('active');
+            }
+        }
+
+        function closeReaderPanel() {
+            readerPanel.classList.remove('active');
+            vignette.classList.remove('active');
+        }
+
+        function setupSimulatorEngine() {
+            slider.addEventListener('input', (e) => {
+                evaluateLiveMetrics(e.target.value);
+            });
+        }
+
+        function evaluateLiveMetrics(value) {
+            counter.innerText = `$${parseFloat(value).toFixed(2)}`;
             if (value >= 150) {
                 counter.classList.add('warn');
-                vault.classList.add('alert-border');
-                badge.classList.add('triggered');
-                statusText.innerText = "Auth Required";
-                
                 reqPanel.classList.add('active');
-                reqText.innerText = "CRITICAL: Valid ID Verification Mandated";
-                
-                actionBtn.classList.add('active-alert-mode');
+                reqText.innerText = "CRITICAL LIMIT: Valid ID Verification Mandated";
                 vignette.classList.add('active');
             } else {
                 counter.classList.remove('warn');
-                vault.classList.remove('alert-border');
-                badge.classList.remove('triggered');
-                statusText.innerText = "System Clear";
-                
                 reqPanel.classList.remove('active');
-                reqText.innerText = "ID Verification Not Required";
-                
-                actionBtn.classList.remove('active-alert-mode');
+                reqText.innerText = "Clearance Checked: ID Verification Not Required";
                 vignette.classList.remove('active');
             }
         }
 
-        // Real-time Event Listener Matrix
-        slider.addEventListener('input', (e) => {
-            evaluateProtocolMetrics(e.target.value);
-        });
+        function editSystemNode(id) {
+            const node = reminders.find(r => r.id === id);
+            if (node) {
+                document.getElementById('recordId').value = node.id;
+                document.getElementById('inputTitle').value = node.title;
+                document.getElementById('inputDesc').value = node.description;
+                document.getElementById('inputEmoji').value = node.emoji || '💡';
+                document.getElementById('panelTitle').innerText = "Modify Active Config Schema";
+                
+                document.querySelectorAll('.luxury-cb-node').forEach(cb => {
+                    cb.checked = node.categories.includes(cb.value);
+                });
+                inputPanel.classList.add('active');
+            }
+        }
 
-        // Initialize at custom baseline value ($75)
-        evaluateProtocolMetrics(slider.value);
+        function destroySystemNode(id) {
+            if (confirm("Execute total file delete wipe on this specific data signature?")) {
+                reminders = reminders.filter(r => r.id !== id);
+                ['👍', '🔥', '📌', '👀'].forEach(k => localStorage.removeItem(`cyb_react_${id}_${k}`));
+                syncStorage();
+                renderWorkspace();
+            }
+        }
+
+        function commitDataToSystem(event) {
+            event.preventDefault();
+            const id = document.getElementById('recordId').value;
+            const title = document.getElementById('inputTitle').value;
+            const description = document.getElementById('inputDesc').value;
+            const emoji = document.getElementById('inputEmoji').value;
+            
+            const activeChecks = document.querySelectorAll('.luxury-cb-node:checked');
+            const parsedCategories = Array.from(activeChecks).map(cb => cb.value);
+
+            if (parsedCategories.length === 0) {
+                alert("Protocol Error: You must bind this record to at least one routing node.");
+                return;
+            }
+
+            if (id) {
+                const targetIdx = reminders.findIndex(r => r.id == id);
+                const historicalReacts = reminders[targetIdx].reactions || { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
+                reminders[targetIdx] = { id: parseInt(id), title, description, categories: parsedCategories, emoji, reactions: historicalReacts };
+            } else {
+                reminders.push({ 
+                    id: Date.now(), 
+                    title, 
+                    description, 
+                    categories: parsedCategories, 
+                    emoji, 
+                    reactions: { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 } 
+                });
+            }
+
+            syncStorage();
+            closeInputPanel();
+            renderWorkspace();
+        }
+
+        function syncStorage() {
+            localStorage.setItem('cyber_reminders', JSON.stringify(reminders));
+        }
+
+        // Ignition Sequence
+        startSystem();
     </script>
 </body>
 </html>
