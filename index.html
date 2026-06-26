@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MISSION CONTROL // QUALITY AUDIT DECK</title>
+    <title>MISSION CONTROL // REMINDERS ENGINE</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,9 +17,16 @@
             --nebula-blue: #00a2ff;
             --nebula-purple: #7000ff;
             --cosmic-glow: rgba(255, 255, 255, 0.03);
-            --border-dim: rgba(255, 255, 255, 0.06);
+            --border-dim: rgba(255, 255, 255, 0.08);
             --text-pure: #ffffff;
             --text-stardust: #94a3b8;
+            
+            /* Paleta temática para categorización visual */
+            --hyper-cyan: #00f3ff;
+            --hyper-pink: #ff007f;
+            --hyper-emerald: #00ffaa;
+            --hyper-amber: #ffaa00;
+
             --font-brush: 'Permanent Marker', cursive;
             --font-sans: 'Plus Jakarta Sans', sans-serif;
             --font-mono: 'Share Tech Mono', monospace;
@@ -53,12 +60,11 @@
             width: 2px; height: 2px;
             background: white;
             border-radius: 50%;
-            /* Simulación de polvo estelar repartido */
             box-shadow: 15vw 25vh 1px #fff, 45vw 12vh 2px #fff, 75vw 60vh 1px #fff, 85vw 30vh 1px #fff, 25vw 80vh 2px #fff, 60vw 90vh 1px #fff, 10vw 55vh 2px #fff, 90vw 85vh 1px #fff, 35vw 40vh 1px #fff;
             opacity: 0.4;
         }
 
-        /* --- CINEMATIC HERO LAYER (STYLE FROM IMAGE) --- */
+        /* --- CINEMATIC HERO LAYER --- */
         .hero-viewport {
             height: 100vh;
             width: 100%;
@@ -73,7 +79,6 @@
             box-sizing: border-box;
         }
 
-        /* UI Accents from Reference Image */
         .top-left-airplane {
             position: absolute;
             top: 40px; left: 40px;
@@ -93,7 +98,6 @@
             width: 22px; height: 2px; background: white; display: block;
         }
 
-        /* Main Typography */
         .hero-viewport h1 {
             font-family: var(--font-brush);
             font-size: 5.5rem;
@@ -118,7 +122,6 @@
             opacity: 0.9;
         }
 
-        /* Pill Call-To-Action */
         .btn-cosmic-pill {
             background-color: var(--nebula-blue);
             color: white;
@@ -143,7 +146,6 @@
             box-shadow: 0 20px 40px rgba(255, 255, 255, 0.4);
         }
 
-        /* Scroll Down Mouse Graphic */
         .scroll-down-indicator {
             position: absolute;
             bottom: 40px;
@@ -180,7 +182,6 @@
             100% { top: 14px; opacity: 0; }
         }
 
-        /* Corner Rocky Planet Horizon Vector */
         .planetary-horizon {
             position: absolute;
             bottom: -50px; right: -50px;
@@ -192,7 +193,7 @@
             pointer-events: none;
         }
 
-        /* --- DASHBOARD LOGISTICS PANEL SECTION --- */
+        /* --- CONTROL DASHBOARD SECTION --- */
         .dashboard-content-section {
             position: relative;
             z-index: 3;
@@ -202,14 +203,13 @@
             box-sizing: border-box;
         }
 
-        /* System Operations Top Bar */
         .dashboard-header-flow {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: center;
             border-bottom: 1px solid var(--border-dim);
             padding-bottom: 30px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             gap: 20px;
             flex-wrap: wrap;
         }
@@ -226,18 +226,23 @@
             letter-spacing: 2px;
         }
 
-        /* Modern Filter Matrix Control Room */
+        .action-cluster {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
         .search-engine-pod {
             position: relative;
-            width: 100%;
-            max-width: 450px;
+            width: 320px;
         }
         .search-engine-pod input {
             width: 100%;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-dim);
             border-radius: 50px;
-            padding: 15px 25px 15px 55px;
+            padding: 14px 25px 14px 50px;
             color: white;
             font-family: var(--font-sans);
             font-size: 14px;
@@ -251,111 +256,292 @@
         }
         .search-engine-pod i {
             position: absolute;
-            left: 22px; top: 50%;
+            left: 20px; top: 50%;
             transform: translateY(-50%);
             color: var(--text-stardust);
         }
 
-        /* Column Grid based on Excel Sheets Layout (Fortalezas, Mejoras, Observaciones) */
-        .audit-columns-wrapper {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 30px;
-            align-items: start;
-        }
-
-        .audit-column-channel {
-            background: rgba(10, 13, 26, 0.4);
-            border: 1px solid var(--border-dim);
-            border-radius: 24px;
-            padding: 30px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        .column-headline-tag {
-            font-family: var(--font-mono);
-            font-size: 14px;
+        .btn-action-trigger {
+            background: white;
+            color: black;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-family: var(--font-sans);
             font-weight: 700;
-            letter-spacing: 2px;
+            font-size: 13px;
             text-transform: uppercase;
-            margin: 0 0 25px 0;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed var(--border-dim);
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-        
-        .col-fortalezas .column-headline-tag { color: #00ffaa; }
-        .col-mejoras .column-headline-tag { color: #ff0066; }
-        .col-observaciones .column-headline-tag { color: #ffaa00; }
-
-        /* Embedded Inner Parameter Cards */
-        .metric-audit-card {
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid var(--border-dim);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 18px;
+            gap: 10px;
             transition: all 0.3s ease;
-            position: relative;
+            box-shadow: 0 10px 20px rgba(255,255,255,0.05);
         }
-        .metric-audit-card:hover {
-            transform: translateX(5px);
-            background: rgba(255,255,255,0.03);
+        .btn-action-trigger:hover {
+            background: var(--nebula-blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0,162,255,0.2);
+        }
+
+        /* Category Filter Ribbon Track */
+        .glass-ribbon {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 45px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        .ribbon-cell {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-dim);
+            color: var(--text-stardust);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .ribbon-cell:hover {
+            color: white;
+            background: rgba(255,255,255,0.05);
             border-color: rgba(255,255,255,0.15);
         }
+        .ribbon-cell.active {
+            background: white;
+            color: black;
+            border-color: white;
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
 
-        .metric-card-header {
+        /* --- CARD MATRIX GRID SYSTEM --- */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 30px;
+        }
+
+        .quantum-card {
+            background: rgba(10, 15, 30, 0.45);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border-dim);
+            border-radius: 24px;
+            padding: 28px;
+            min-height: 340px;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            gap: 15px;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+        .quantum-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
         }
 
-        .metric-card-header h4 {
-            margin: 0;
-            font-size: 15px;
+        /* Top Corner Actions Panel */
+        .card-ambient-node {
+            position: absolute;
+            top: 25px; right: 25px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .card-utility-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-dim);
+            color: var(--text-stardust);
+            width: 34px; height: 34px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center; justify-content: center;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            opacity: 0;
+        }
+        .quantum-card:hover .card-utility-btn { opacity: 1; }
+        .card-utility-btn:hover { background: white; color: black; border-color: white; }
+        .card-utility-btn.danger-wipe:hover { background: #ff0055; color: white; border-color: #ff0055; }
+
+        .card-icon-hub {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            width: fit-content;
+            transition: transform 0.3s;
+        }
+        .quantum-card:hover .card-icon-hub { transform: scale(1.1) rotate(5deg); }
+
+        /* Categorized Soft Base Glow Shadows */
+        .quantum-card.theme-sports .card-icon-hub { filter: drop-shadow(0 0 15px var(--hyper-emerald)); }
+        .quantum-card.theme-casino .card-icon-hub { filter: drop-shadow(0 0 15px var(--hyper-pink)); }
+        .quantum-card.theme-money .card-icon-hub { filter: drop-shadow(0 0 15px var(--hyper-amber)); }
+        .quantum-card.theme-general .card-icon-hub { filter: drop-shadow(0 0 15px var(--hyper-cyan)); }
+        .quantum-card.theme-bonus .card-icon-hub { filter: drop-shadow(0 0 15px #7000ff); }
+
+        .quantum-card h3 {
+            font-size: 1.4rem;
             font-weight: 700;
-            line-height: 1.4;
-            color: var(--text-pure);
+            margin: 0 0 12px 0;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+        }
+        .quantum-card p {
+            color: var(--text-stardust);
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0 0 25px 0;
+            flex-grow: 1;
         }
 
-        .metric-badge-indicator {
-            font-family: var(--font-mono);
-            font-size: 10px;
+        /* Reactions Hub Layout */
+        .reaction-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+        .pill-trigger {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-dim);
+            color: var(--text-stardust);
+            padding: 8px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center; gap: 6px;
+            transition: all 0.2s;
+        }
+        .pill-trigger:hover {
+            background: rgba(255,255,255,0.06);
+            color: white;
+        }
+        .pill-trigger.active-state {
+            background: rgba(0, 162, 255, 0.1);
+            border-color: var(--nebula-blue);
+            color: var(--nebula-blue);
+            box-shadow: 0 0 15px rgba(0, 162, 255, 0.1);
+        }
+
+        .tag-row-box {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            padding-top: 15px;
+        }
+        .tag-pill-node {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-stardust);
+            background: rgba(255,255,255,0.03);
             padding: 4px 10px;
             border-radius: 6px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-        .status-fortaleza { background: rgba(0, 255, 170, 0.1); color: #00ffaa; }
-        .status-mejora { background: rgba(255, 0, 102, 0.1); color: #ff0066; }
-        .status-observacion { background: rgba(255, 170, 0, 0.1); color: #ffaa00; }
-
-        .metric-audit-card p {
-            margin: 0;
-            font-size: 13.5px;
-            line-height: 1.6;
-            color: var(--text-stardust);
+            letter-spacing: 0.5px;
         }
 
-        /* Footer Stamp */
-        .terminal-footer-stamp {
-            text-align: center;
-            font-family: var(--font-mono);
-            font-size: 12px;
-            color: var(--text-stardust);
-            padding: 80px 0 40px 0;
+        /* --- SYSTEM INJECTION MODAL MASK --- */
+        .glass-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 4, 8, 0.75);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 10000;
+            opacity: 0; visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-overlay.active { opacity: 1; visibility: visible; }
+
+        .glass-modal-vault {
+            background: rgba(14, 20, 38, 0.9);
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 95%; max-width: 550px;
+            padding: 40px;
+            border-radius: 28px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+            transform: scale(0.95);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-overlay.active .glass-modal-vault { transform: scale(1); }
+
+        .modal-head-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .modal-head-row h2 {
+            font-family: var(--font-brush);
+            font-size: 1.8rem; margin: 0;
             letter-spacing: 1px;
-            opacity: 0.5;
+        }
+        .modal-close-trigger {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-dim);
+            color: var(--text-stardust); width: 36px; height: 36px;
+            border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .modal-close-trigger:hover { color: white; background: #ff0055; border-color: #ff0055; }
+
+        .input-block-node { margin-bottom: 22px; }
+        .input-block-node label {
+            display: block; font-size: 12px; font-weight: 700;
+            text-transform: uppercase; color: var(--text-stardust);
+            margin-bottom: 8px; letter-spacing: 0.5px;
+        }
+        .input-block-node input[type="text"],
+        .input-block-node textarea,
+        .input-block-node select {
+            width: 100%; background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border-dim); padding: 14px;
+            color: white; font-family: var(--font-sans); font-size: 14px;
+            border-radius: 12px; outline: none; box-sizing: border-box;
+        }
+        .input-block-node input[type="text"]:focus,
+        .input-block-node textarea:focus,
+        .input-block-node select:focus {
+            border-color: var(--nebula-blue);
         }
 
-        @media(max-width: 768px) {
-            .hero-viewport h1 { font-size: 3.5rem; }
-            .audit-columns-wrapper { grid-template-columns: 1fr; }
+        .checkbox-flex-matrix {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        .cb-organic-label {
+            display: flex; align-items: center; gap: 10px;
+            cursor: pointer; font-size: 13.5px; color: var(--text-stardust);
+        }
+        .cb-organic-label input { accent-color: var(--nebula-blue); width: 16px; height: 16px; }
+
+        .modal-action-footer {
+            display: flex; justify-content: flex-end; gap: 12px; margin-top: 35px;
+        }
+        .btn-core {
+            padding: 14px 28px; font-family: var(--font-sans);
+            font-size: 13px; font-weight: 700; text-transform: uppercase;
+            cursor: pointer; border-radius: 12px; transition: all 0.2s;
+        }
+        .btn-core.dismiss { background: transparent; border: 1px solid var(--border-dim); color: var(--text-stardust); }
+        .btn-core.dismiss:hover { color: white; border-color: rgba(255,255,255,0.2); }
+        .btn-core.save-execute { background: white; border: none; color: black; }
+        .btn-core.save-execute:hover { background: var(--nebula-blue); color: white; }
+
+        .zero-state-logs {
+            text-align: center; color: var(--text-stardust);
+            font-family: var(--font-mono); font-size: 14px;
+            grid-column: 1 / -1; padding: 80px 0;
+            text-transform: uppercase; letter-spacing: 2px;
         }
     </style>
 </head>
@@ -373,7 +559,7 @@
         </div>
 
         <h1>Hello! I'm Aether</h1>
-        <p>Quality Assurance & Operational Evaluation Core Terminal</p>
+        <p>Dynamic Terminal & Centralized Reminder Stream</p>
         
         <a href="#dashboardDeck" class="btn-cosmic-pill">Explore Audit Parameters</a>
 
@@ -389,121 +575,304 @@
         
         <div class="dashboard-header-flow">
             <div class="system-title-box">
-                <h2>Evaluation Matrix</h2>
-                <span id="liveTimestamp">SYSTEM ONLINE // DATA STREAM LINK CONFIGURED</span>
+                <h2>Control Room Base</h2>
+                <span id="liveTimestamp">SYSTEM ONLINE // CORE MEMORY CONNECTION ACTIVATED</span>
             </div>
             
-            <div class="search-engine-pod">
-                <i class="fas fa-search"></i>
-                <input type="text" id="metricSearchFilter" placeholder="Filter parameters (e.g., Template, SLA)...">
+            <div class="action-cluster">
+                <div class="search-engine-pod">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="nebulaQueryInput" placeholder="Scan titles or description tags...">
+                </div>
+                <button class="btn-action-trigger" onclick="openConfigModal()">
+                    <i class="fas fa-plus"></i> Inject Node
+                </button>
             </div>
         </div>
 
-        <div class="audit-columns-wrapper">
-            
-            <div class="audit-column-channel col-fortalezas">
-                <h3 class="column-headline-tag"><i class="fas fa-circle-check"></i> Titulos a Fortalezas</h3>
-                <div class="cards-bucket-node" id="bucketFortalezas"></div>
-            </div>
+        <div class="glass-ribbon" id="categoryRibbonTrack"></div>
 
-            <div class="audit-column-channel col-mejoras">
-                <h3 class="column-headline-tag"><i class="fas fa-triangle-exclamation"></i> Titulos Mejora</h3>
-                <div class="cards-bucket-node" id="bucketMejoras"></div>
-            </div>
-
-            <div class="audit-column-channel col-observaciones">
-                <h3 class="column-headline-tag"><i class="fas fa-eye"></i> Titulos a Observar</h3>
-                <div class="cards-bucket-node" id="bucketObservaciones"></div>
-            </div>
-
-        </div>
-
-        <footer class="terminal-footer-stamp">
-            // TERMINAL STREAM COMPLETE // AUDIT SPEC v4.2 // LOCALSTORAGE SYNCED //
-        </footer>
+        <div class="matrix-grid" id="masterMatrixGrid"></div>
+        <div class="zero-state-logs" id="zeroNotice" style="display:none;">Data Index Complete // Zero records aligned with current criteria</div>
     </main>
 
-    <script>
-        // Set real-time operational timestamp log
-        const timestampNode = document.getElementById('liveTimestamp');
-        const formattedDate = new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }).toUpperCase();
-        timestampNode.innerText = `SYSTEM TRACKING CORE // LIVE BACKLOG // ${formattedDate}`;
+    <div class="glass-overlay" id="recordConfigModal">
+        <div class="glass-modal-vault">
+            <div class="modal-head-row">
+                <h2 id="configModalLabel">Inject New Record Payload</h2>
+                <button class="modal-close-trigger" onclick="closeConfigModal()"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <form id="schemaStructureForm" onsubmit="commitNodePayload(event)">
+                <input type="hidden" id="nodePayloadId">
+                
+                <div class="input-block-node">
+                    <label>Title Vector Identifier</label>
+                    <input type="text" id="formTitleField" required placeholder="Assign record title description parameters...">
+                </div>
 
-        // Raw Mapping Data structural matrix extracted from provided image sheets
-        const evaluationCriteriaRaw = [
-            { title: "Personalized Greeting", description: "Correct agent name used seamlessly throughout the customer introduction vector.", type: "fortaleza" },
-            { title: "Accurate Information & Effective Resolution", description: "Accurate resolution strategy deployed strictly aligned with updated company policy frameworks.", type: "fortaleza" },
-            { title: "Correct Template Used", description: "Appropriate layout selection mapped according to the exact case classification criteria.", type: "fortaleza" },
-            { title: "Grammar & Spelling", description: "Proper deployment of language architecture, punctuation accuracy, and sentence structuring layouts.", type: "mejora" },
-            { title: "Proper Formatting", description: "Perfect enforcement of font standards, size symmetry, color sync, and logical padding spaces.", type: "mejora" },
-            { title: "Timely Response", description: "SLA compliance thresholds met perfectly within the mandatory 1-hour execution timeline.", type: "mejora" },
-            { title: "Signature Included", description: "Outgoing messaging contains the fully validated mandatory automated digital corporate signature block.", type: "observacion" },
-            { title: "Case Documentation", description: "Back-office log update entries saved correctly for cross-department tracking pipelines.", type: "observacion" }
+                <div class="input-block-node">
+                    <label>Topic Core Icon Matrix</label>
+                    <select id="formEmojiField">
+                        <option value="🎰">Casino Terminal 🎰</option>
+                        <option value="⚽">Athletics Hub ⚽</option>
+                        <option value="🎁">Promotional Matrix 🎁</option>
+                        <option value="💡">General Info Core 💡</option>
+                        <option value="🎟️">Lottery Vector 🎟️</option>
+                        <option value="💳">Deposit Vault Interface 💳</option>
+                        <option value="💰">Payout Ledger Target 💰</option>
+                    </select>
+                </div>
+                
+                <div class="input-block-node">
+                    <label>Payload Log Summary</label>
+                    <textarea id="formDescField" required placeholder="Log specific instructions or parameters..." style="height: 100px; resize: vertical;"></textarea>
+                </div>
+                
+                <div class="input-block-node">
+                    <label>Vector Route Channels (Select multiple)</label>
+                    <div class="checkbox-flex-matrix" id="formCheckboxCluster"></div>
+                </div>
+
+                <div class="modal-action-footer">
+                    <button type="button" class="btn-core dismiss" onclick="closeConfigModal()">Abort</button>
+                    <button type="submit" class="btn-core save-execute">Deploy Payload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Baseline Database Core Seed (All your original files information)
+        const coreSeedCollection = [
+            { id: 1, title: "Bank Wire Verification Update", description: "ID and Utility Bill are no longer required for Bank Wire withdrawals. This streamlines processing times significantly for all regional requests.", categories: ["Payouts", "General Info"], emoji: "💰", reactions: { "👍": 12, "🔥: 4", "📌": 2, "👀": 9 } },
+            { id: 2, title: "Information Change Protocol", description: "An ID is required only for email address changes when the available balance is $150 or more. Make sure the documentation matches perfectly.", categories: ["General Info"], emoji: "💡", reactions: { "👍": 5, "🔥": 0, "📌": 21, "👀": 44 } },
+            { id: 3, title: "Bonus Request Exception Update", description: "No exception is needed for bonus requests when the qualifying deposit was made between 24 and 48 hours ago.", categories: ["Bonuses", "Deposits"], emoji: "🎁", reactions: { "👍": 19, "🔥": 33, "📌": 3, "👀": 14 } },
+            { id: 4, title: "Sportsbook Rules Framework", description: "All ongoing match dispute reviews require automated ticket matching keys. Do not process Manual Adjustments without approval.", categories: ["Sports"], emoji: "⚽", reactions: { "👍": 8, "🔥": 2, "📌": 7, "👀": 20 } },
+            { id: 5, title: "Casino Game Malfunction Matrix", description: "In the event of active slots visual freezes, guide users to execute an ecosystem hard-refresh cache process before escalating logs.", categories: ["Casino"], emoji: "🎰", reactions: { "👍": 14, "🔥": 12, "📌": 18, "👀": 35 } }
         ];
 
-        const searchField = document.getElementById('metricSearchFilter');
+        let reminders = JSON.parse(localStorage.getItem('ba_reminders')) || coreSeedCollection;
+        const networkCategories = ["Deposits", "Payouts", "General Info", "Bonuses", "Sports", "Casino"];
+        
+        let targetedCategoryChannel = "All";
+        let localFilterQueryString = "";
 
-        function executeMatrixRender() {
-            const query = searchField.value.toLowerCase().trim();
-            
-            const bFortalezas = document.getElementById('bucketFortalezas');
-            const bMejoras = document.getElementById('bucketMejoras');
-            const bObservaciones = document.getElementById('bucketObservaciones');
+        const matrixGrid = document.getElementById('masterMatrixGrid');
+        const ribbonTrack = document.getElementById('categoryRibbonTrack');
+        const searchInput = document.getElementById('nebulaQueryInput');
+        const configModal = document.getElementById('recordConfigModal');
+        const zeroNotice = document.getElementById('zeroNotice');
 
-            // Wipe nodes cleanly before looping
-            bFortalezas.innerHTML = '';
-            bMejoras.innerHTML = '';
-            bObservaciones.innerHTML = '';
+        // Setup real-time system clock logs
+        const formattedDate = new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }).toUpperCase();
+        document.getElementById('liveTimestamp').innerText = `SYSTEM OPERATIONS TRACKER // LIVE CONNECTED // ${formattedDate}`;
 
-            evaluationCriteriaRaw.forEach(item => {
-                // Search filter alignment evaluation
-                if (query !== '' && !item.title.toLowerCase().includes(query) && !item.description.toLowerCase().includes(query)) {
-                    return;
-                }
-
-                const card = document.createElement('div');
-                card.className = 'metric-audit-card';
-                
-                let badgeClass = '';
-                let typeLabel = '';
-                let targetedBucket = null;
-
-                if (item.type === 'fortaleza') {
-                    badgeClass = 'status-fortaleza';
-                    typeLabel = 'Fortaleza';
-                    targetedBucket = bFortalezas;
-                } else if (item.type === 'mejora') {
-                    badgeClass = 'status-mejora';
-                    typeLabel = 'Mejora';
-                    targetedBucket = bMejoras;
-                } else {
-                    badgeClass = 'status-observacion';
-                    typeLabel = 'Observar';
-                    targetedBucket = bObservaciones;
-                }
-
-                card.innerHTML = `
-                    <div class="metric-card-header">
-                        <h4>${item.title}</h4>
-                        <span class="metric-badge-indicator ${badgeClass}">${typeLabel}</span>
-                    </div>
-                    <p>${item.description}</p>
-                `;
-
-                targetedBucket.appendChild(card);
-            });
-
-            // Display placeholder message inside column channels if left empty by search parameters
-            if(bFortalezas.innerHTML === '') bFortalezas.innerHTML = '<div style="color:var(--text-stardust); font-size:13px; font-family:var(--font-mono);">NO RECS IN CHANNEL</div>';
-            if(bMejoras.innerHTML === '') bMejoras.innerHTML = '<div style="color:var(--text-stardust); font-size:13px; font-family:var(--font-mono);">NO RECS IN CHANNEL</div>';
-            if(bObservaciones.innerHTML === '') bObservaciones.innerHTML = '<div style="color:var(--text-stardust); font-size:13px; font-family:var(--font-mono);">NO RECS IN CHANNEL</div>';
+        function ignitionSequence() {
+            generateRibbonCells();
+            generateFormCheckboxes();
+            pipelineSynchronizeGrid();
         }
 
-        // Add real-time event listeners
-        searchField.addEventListener('input', executeMatrixRender);
+        function generateRibbonCells() {
+            ribbonTrack.innerHTML = '';
+            ["All", ...networkCategories].forEach(cat => {
+                const cell = document.createElement('button');
+                cell.className = `ribbon-cell ${cat === targetedCategoryChannel ? 'active' : ''}`;
+                cell.textContent = cat;
+                cell.onclick = () => {
+                    targetedCategoryChannel = cat;
+                    generateRibbonCells();
+                    pipelineSynchronizeGrid();
+                };
+                ribbonTrack.appendChild(cell);
+            });
+        }
 
-        // Core system ignition
-        executeMatrixRender();
+        function generateFormCheckboxes() {
+            const wrapperBox = document.getElementById('formCheckboxCluster');
+            wrapperBox.innerHTML = '';
+            networkCategories.forEach(cat => {
+                wrapperBox.innerHTML += `
+                    <label class="cb-organic-label">
+                        <input type="checkbox" value="${cat}" class="payload-cb-node"> ${cat}
+                    </label>
+                `;
+            });
+        }
+
+        function extractThemeClassMap(emoji) {
+            if (emoji === '⚽') return 'theme-sports';
+            if (emoji === '🎰' || emoji === '🎟️') return 'theme-casino';
+            if (emoji === '💰') return 'theme-money';
+            if (emoji === '💳' || emoji === '💡') return 'theme-general';
+            if (emoji === '🎁') return 'theme-bonus';
+            return '';
+        }
+
+        function pipelineSynchronizeGrid() {
+            matrixGrid.innerHTML = '';
+            let operationalStack = reminders;
+
+            if (targetedCategoryChannel !== "All") {
+                operationalStack = operationalStack.filter(r => r.categories.includes(targetedCategoryChannel));
+            }
+
+            if (localFilterQueryString.trim() !== "") {
+                const matchingLower = localFilterQueryString.toLowerCase();
+                operationalStack = operationalStack.filter(r => 
+                    r.title.toLowerCase().includes(matchingLower) || 
+                    r.description.toLowerCase().includes(matchingLower)
+                );
+            }
+
+            if (operationalStack.length === 0) {
+                zeroNotice.style.display = 'block';
+                return;
+            }
+            zeroNotice.style.display = 'none';
+
+            [...operationalStack].reverse().forEach((record) => {
+                const cardNode = document.createElement('div');
+                const specificTheme = extractThemeClassMap(record.emoji);
+                cardNode.className = `quantum-card ${specificTheme}`;
+
+                const internalReacts = record.reactions || { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
+                const tagsListHtml = record.categories.map(c => `<span class="tag-pill-node">${c}</span>`).join('');
+                
+                const activeR1 = localStorage.getItem(`aether_react_${record.id}_👍`) ? 'active-state' : '';
+                const activeR2 = localStorage.getItem(`aether_react_${record.id}_🔥`) ? 'active-state' : '';
+                const activeR3 = localStorage.getItem(`aether_react_${record.id}_📌`) ? 'active-state' : '';
+                const activeR4 = localStorage.getItem(`aether_react_${record.id}_👀`) ? 'active-state' : '';
+
+                cardNode.innerHTML = `
+                    <div class="card-ambient-node">
+                        <button class="card-utility-btn" onclick="editPayloadConfig(${record.id})" title="Adjust Parameters"><i class="fas fa-sliders-h"></i></button>
+                        <button class="card-utility-btn danger-wipe" onclick="wipeOperationalNode(${record.id})" title="Purge Record"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <div class="card-icon-hub">${record.emoji || '💡'}</div>
+                    <h3>${record.title}</h3>
+                    <p>${record.description}</p>
+                    
+                    <div class="reaction-row">
+                        <button class="pill-trigger ${activeR1}" onclick="triggerAtomicReaction(${record.id}, '👍')">
+                            <span>👍</span> <span>${internalReacts['👍'] || 0}</span>
+                        </button>
+                        <button class="pill-trigger ${activeR2}" onclick="triggerAtomicReaction(${record.id}, '🔥')">
+                            <span>🔥</span> <span>${internalReacts['🔥'] || 0}</span>
+                        </button>
+                        <button class="pill-trigger ${activeR3}" onclick="triggerAtomicReaction(${record.id}, '📌')">
+                            <span>📌</span> <span>${internalReacts['📌'] || 0}</span>
+                        </button>
+                        <button class="pill-trigger ${activeR4}" onclick="triggerAtomicReaction(${record.id}, '👀')">
+                            <span>👀</span> <span>${internalReacts['👀'] || 0}</span>
+                        </button>
+                    </div>
+                    <div class="tag-row-box">${tagsListHtml}</div>
+                `;
+                matrixGrid.appendChild(cardNode);
+            });
+        }
+
+        function triggerAtomicReaction(id, emojiKey) {
+            const index = reminders.findIndex(r => r.id === id);
+            if (index !== -1) {
+                if (!reminders[index].reactions) {
+                    reminders[index].reactions = { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
+                }
+
+                const reactionStateKey = `aether_react_${id}_${emojiKey}`;
+                if (localStorage.getItem(reactionStateKey)) {
+                    reminders[index].reactions[emojiKey] = Math.max(0, (reminders[index].reactions[emojiKey] || 1) - 1);
+                    localStorage.removeItem(reactionStateKey);
+                } else {
+                    reminders[index].reactions[emojiKey] = (reminders[index].reactions[emojiKey] || 0) + 1;
+                    localStorage.setItem(reactionStateKey, 'true');
+                }
+
+                saveStateToVault();
+                pipelineSynchronizeGrid();
+            }
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            localFilterQueryString = e.target.value;
+            pipelineSynchronizeGrid();
+        });
+
+        function openConfigModal() {
+            document.getElementById('schemaStructureForm').reset();
+            document.getElementById('nodePayloadId').value = '';
+            document.getElementById('formEmojiField').value = '🎰';
+            document.getElementById('configModalLabel').innerText = "Inject New Record Payload";
+            document.querySelectorAll('.payload-cb-node').forEach(cb => cb.checked = false);
+            configModal.classList.add('active');
+        }
+
+        function closeConfigModal() { configModal.classList.remove('active'); }
+
+        function editPayloadConfig(id) {
+            const record = reminders.find(r => r.id === id);
+            if (record) {
+                document.getElementById('nodePayloadId').value = record.id;
+                document.getElementById('formTitleField').value = record.title;
+                document.getElementById('formDescField').value = record.description;
+                document.getElementById('formEmojiField').value = record.emoji || '💡';
+                document.getElementById('configModalLabel').innerText = "Adjust Record Matrix Schema";
+                
+                document.querySelectorAll('.payload-cb-node').forEach(cb => {
+                    cb.checked = record.categories.includes(cb.value);
+                });
+                configModal.classList.add('active');
+            }
+        }
+
+        function wipeOperationalNode(id) {
+            if (confirm("Permanently delete this reminder from the master records base?")) {
+                reminders = reminders.filter(r => r.id !== id);
+                ['👍', '🔥', '📌', '👀'].forEach(k => localStorage.removeItem(`aether_react_${id}_${k}`));
+                saveStateToVault();
+                pipelineSynchronizeGrid();
+            }
+        }
+
+        function commitNodePayload(event) {
+            event.preventDefault();
+            const id = document.getElementById('nodePayloadId').value;
+            const title = document.getElementById('formTitleField').value;
+            const description = document.getElementById('formDescField').value;
+            const emoji = document.getElementById('formEmojiField').value;
+            
+            const checksList = document.querySelectorAll('.payload-cb-node:checked');
+            const targetCategories = Array.from(checksList).map(cb => cb.value);
+
+            if (targetCategories.length === 0) {
+                alert("Routing Failure: Link this record to at least one dynamic category channel.");
+                return;
+            }
+
+            if (id) {
+                const idx = reminders.findIndex(r => r.id == id);
+                const historicReacts = reminders[idx].reactions || { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
+                reminders[idx] = { id: parseInt(id), title, description, categories: targetCategories, emoji, reactions: historicReacts };
+            } else {
+                reminders.push({ 
+                    id: Date.now(), title, description, categories: targetCategories, emoji, 
+                    reactions: { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 } 
+                });
+            }
+
+            saveStateToVault();
+            closeConfigModal();
+            pipelineSynchronizeGrid();
+        }
+
+        function saveStateToVault() {
+            localStorage.setItem('ba_reminders', JSON.stringify(reminders));
+        }
+
+        // Initialize Engine Core
+        ignitionSequence();
     </script>
 </body>
 </html>
