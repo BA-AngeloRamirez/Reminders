@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MISSION CONTROL // REMINDERS ENGINE</title>
+    <title>BA Reminders // MISSION CONTROL</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -16,19 +16,19 @@
             --deep-void: #0a0d1a;
             --nebula-blue: #00a2ff;
             --nebula-purple: #7000ff;
-            --cosmic-glow: rgba(255, 255, 255, 0.03);
             --border-dim: rgba(255, 255, 255, 0.08);
             --text-pure: #ffffff;
             --text-stardust: #94a3b8;
             
-            /* Paleta temática para categorización visual */
-            --hyper-cyan: #00f3ff;
-            --hyper-pink: #ff007f;
-            --hyper-emerald: #00ffaa;
-            --hyper-amber: #ffaa00;
+            /* Paletas de degradados originales mapeadas para las tarjetas */
+            --gradient-sports: linear-gradient(135deg, #09472a 0%, #061f14 100%);
+            --gradient-casino: linear-gradient(135deg, #2a1140 0%, #150821 100%);
+            --gradient-money: linear-gradient(135deg, #5c3c06 0%, #291a02 100%);
+            --gradient-general: linear-gradient(135deg, #182a47 0%, #0b1424 100%);
+            --gradient-bonus: linear-gradient(135deg, #52112a 0%, #260713 100%);
 
             --font-brush: 'Permanent Marker', cursive;
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-sans: 'Poppins', sans-serif;
             --font-mono: 'Share Tech Mono', monospace;
         }
 
@@ -64,7 +64,7 @@
             opacity: 0.4;
         }
 
-        /* --- CINEMATIC HERO LAYER --- */
+        /* --- CINEMATIC HERO LAYER (STYLE FROM IMAGE) --- */
         .hero-viewport {
             height: 100vh;
             width: 100%;
@@ -219,11 +219,12 @@
             margin: 0 0 8px 0;
             letter-spacing: 1px;
         }
-        .system-title-box span {
+        .system-title-box .subtitle {
             font-family: var(--font-mono);
             color: var(--nebula-blue);
             font-size: 13px;
             letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .action-cluster {
@@ -235,7 +236,7 @@
 
         .search-engine-pod {
             position: relative;
-            width: 320px;
+            width: 340px;
         }
         .search-engine-pod input {
             width: 100%;
@@ -276,16 +277,14 @@
             align-items: center;
             gap: 10px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(255,255,255,0.05);
         }
         .btn-action-trigger:hover {
             background: var(--nebula-blue);
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(0,162,255,0.2);
         }
 
-        /* Category Filter Ribbon Track */
+        /* Category Ribbon Tracks (Tabs) */
         .glass-ribbon {
             display: flex;
             gap: 10px;
@@ -304,23 +303,22 @@
             cursor: pointer;
             transition: all 0.2s ease;
             white-space: nowrap;
+            font-family: var(--font-sans);
         }
         .ribbon-cell:hover {
             color: white;
             background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.15);
         }
         .ribbon-cell.active {
             background: white;
             color: black;
             border-color: white;
-            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
         }
 
-        /* --- CARD MATRIX GRID SYSTEM --- */
+        /* --- REMINDERS GRID SYSTEM --- */
         .matrix-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 30px;
         }
 
@@ -330,32 +328,44 @@
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--border-dim);
             border-radius: 24px;
-            padding: 28px;
+            overflow: hidden;
             min-height: 340px;
             display: flex;
             flex-direction: column;
             position: relative;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
             box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            cursor: pointer;
         }
         .quantum-card:hover {
             transform: translateY(-8px);
             border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
         }
 
-        /* Top Corner Actions Panel */
-        .card-ambient-node {
+        /* Card Visual Graphic Top Box */
+        .card-visual-header {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .card-visual-header .big-emoji {
+            font-size: 3.2em;
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3));
+        }
+
+        .card-ambient-actions {
             position: absolute;
-            top: 25px; right: 25px;
+            top: 15px; right: 15px;
             display: flex;
             gap: 8px;
-            align-items: center;
+            z-index: 5;
         }
         .card-utility-btn {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-dim);
-            color: var(--text-stardust);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            color: #abbccd;
             width: 34px; height: 34px;
             border-radius: 10px;
             display: flex;
@@ -363,71 +373,67 @@
             font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
-            opacity: 0;
         }
-        .quantum-card:hover .card-utility-btn { opacity: 1; }
-        .card-utility-btn:hover { background: white; color: black; border-color: white; }
+        .card-utility-btn:hover { background: white; color: black; }
         .card-utility-btn.danger-wipe:hover { background: #ff0055; color: white; border-color: #ff0055; }
 
-        .card-icon-hub {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            width: fit-content;
-            transition: transform 0.3s;
-        }
-        .quantum-card:hover .card-icon-hub { transform: scale(1.1) rotate(5deg); }
-
-        /* Categorized Soft Base Glow Shadows */
-        .quantum-card.theme-sports .card-icon-hub { filter: drop-shadow(0 0 15px var(--hyper-emerald)); }
-        .quantum-card.theme-casino .card-icon-hub { filter: drop-shadow(0 0 15px var(--hyper-pink)); }
-        .quantum-card.theme-money .card-icon-hub { filter: drop-shadow(0 0 15px var(--hyper-amber)); }
-        .quantum-card.theme-general .card-icon-hub { filter: drop-shadow(0 0 15px var(--hyper-cyan)); }
-        .quantum-card.theme-bonus .card-icon-hub { filter: drop-shadow(0 0 15px #7000ff); }
-
-        .quantum-card h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin: 0 0 12px 0;
-            line-height: 1.3;
-            letter-spacing: -0.5px;
-        }
-        .quantum-card p {
-            color: var(--text-stardust);
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0 0 25px 0;
+        .card-inner-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
             flex-grow: 1;
         }
+        .card-inner-body h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            line-height: 1.3;
+            color: var(--text-pure);
+        }
+        .card-inner-body p {
+            color: var(--text-stardust);
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0 0 20px 0;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-        /* Reactions Hub Layout */
-        .reaction-row {
+        /* Reactions Layout */
+        .reaction-row-wrapper {
             display: flex;
             gap: 8px;
-            margin-bottom: 22px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 5;
         }
-        .pill-trigger {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-dim);
-            color: var(--text-stardust);
-            padding: 8px 14px;
-            border-radius: 12px;
+        .pill-trigger-btn {
+            background: #171e2e;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #8da2c4;
+            padding: 6px 14px;
+            border-radius: 6px;
             cursor: pointer;
+            font-family: var(--font-sans);
             font-size: 13px;
             font-weight: 600;
             display: flex;
-            align-items: center; gap: 6px;
+            align-items: center; gap: 8px;
             transition: all 0.2s;
         }
-        .pill-trigger:hover {
-            background: rgba(255,255,255,0.06);
+        .pill-trigger-btn:hover {
+            background: #202b42;
             color: white;
         }
-        .pill-trigger.active-state {
-            background: rgba(0, 162, 255, 0.1);
-            border-color: var(--nebula-blue);
-            color: var(--nebula-blue);
-            box-shadow: 0 0 15px rgba(0, 162, 255, 0.1);
+        .pill-trigger-btn.active-state {
+            background: rgba(137, 82, 255, 0.15);
+            border-color: #8952ff;
+            color: #b394ff;
         }
 
         .tag-row-box {
@@ -435,113 +441,112 @@
             gap: 6px;
             flex-wrap: wrap;
             margin-top: auto;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            padding-top: 15px;
         }
         .tag-pill-node {
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            color: var(--text-stardust);
-            background: rgba(255,255,255,0.03);
-            padding: 4px 10px;
-            border-radius: 6px;
+            background-color: #171e2e;
+            color: #728fb8;
+            padding: 5px 10px;
+            border-radius: 4px;
             letter-spacing: 0.5px;
         }
 
-        /* --- SYSTEM INJECTION MODAL MASK --- */
-        .glass-overlay {
+        /* --- SYSTEM INTERFACE MODALS MATRIX --- */
+        .glass-overlay-mask {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 4, 8, 0.75);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(11, 14, 23, 0.85); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: flex;
             align-items: center; justify-content: center;
             z-index: 10000;
             opacity: 0; visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
         }
-        .glass-overlay.active { opacity: 1; visibility: visible; }
+        .glass-overlay-mask.active { opacity: 1; visibility: visible; }
 
         .glass-modal-vault {
-            background: rgba(14, 20, 38, 0.9);
-            border: 1px solid rgba(255,255,255,0.1);
-            width: 95%; max-width: 550px;
-            padding: 40px;
-            border-radius: 28px;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.6);
-            transform: scale(0.95);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            width: 95%; max-width: 520px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
         }
-        .glass-overlay.active .glass-modal-vault { transform: scale(1); }
+        .glass-overlay-mask.active .glass-modal-vault { transform: translateY(0); }
 
         .modal-head-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .modal-head-row h2 {
-            font-family: var(--font-brush);
-            font-size: 1.8rem; margin: 0;
-            letter-spacing: 1px;
+            font-size: 1.5em; color: white; margin: 0;
         }
         .modal-close-trigger {
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border-dim);
-            color: var(--text-stardust); width: 36px; height: 36px;
-            border-radius: 50%; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
+            background: none; border: none;
+            color: #6b82a6; font-size: 1.4em; cursor: pointer;
+            transition: color 0.2s;
         }
-        .modal-close-trigger:hover { color: white; background: #ff0055; border-color: #ff0055; }
+        .modal-close-trigger:hover { color: white; }
 
-        .input-block-node { margin-bottom: 22px; }
+        .input-block-node { margin-bottom: 20px; }
         .input-block-node label {
-            display: block; font-size: 12px; font-weight: 700;
-            text-transform: uppercase; color: var(--text-stardust);
-            margin-bottom: 8px; letter-spacing: 0.5px;
+            display: block; margin-bottom: 8px; font-weight: 600;
+            font-size: 14px; color: #8da2c4;
         }
         .input-block-node input[type="text"],
         .input-block-node textarea,
         .input-block-node select {
-            width: 100%; background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border-dim); padding: 14px;
+            width: 100%; padding: 12px 15px; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.08); background: #111622;
             color: white; font-family: var(--font-sans); font-size: 14px;
-            border-radius: 12px; outline: none; box-sizing: border-box;
+            box-sizing: border-box; outline: none;
         }
         .input-block-node input[type="text"]:focus,
         .input-block-node textarea:focus,
         .input-block-node select:focus {
-            border-color: var(--nebula-blue);
+            border-color: #8952ff;
         }
+        .input-block-node select option { background: var(--panel-bg); color: white; }
 
-        .checkbox-flex-matrix {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        .checkbox-grid-matrix {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
         }
         .cb-organic-label {
             display: flex; align-items: center; gap: 10px;
-            cursor: pointer; font-size: 13.5px; color: var(--text-stardust);
+            cursor: pointer; font-size: 14px; color: #abbccd;
         }
-        .cb-organic-label input { accent-color: var(--nebula-blue); width: 16px; height: 16px; }
+        .cb-organic-label input { accent-color: #8952ff; width: 16px; height: 16px; }
 
         .modal-action-footer {
-            display: flex; justify-content: flex-end; gap: 12px; margin-top: 35px;
+            display: flex; justify-content: flex-end; gap: 12px; margin-top: 30px;
         }
         .btn-core {
-            padding: 14px 28px; font-family: var(--font-sans);
-            font-size: 13px; font-weight: 700; text-transform: uppercase;
-            cursor: pointer; border-radius: 12px; transition: all 0.2s;
+            padding: 11px 24px; font-family: var(--font-sans);
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            border-radius: 8px; border: none; transition: all 0.2s;
         }
-        .btn-core.dismiss { background: transparent; border: 1px solid var(--border-dim); color: var(--text-stardust); }
-        .btn-core.dismiss:hover { color: white; border-color: rgba(255,255,255,0.2); }
-        .btn-core.save-execute { background: white; border: none; color: black; }
-        .btn-core.save-execute:hover { background: var(--nebula-blue); color: white; }
+        .btn-core.dismiss { background: #111622; color: #abbccd; }
+        .btn-core.dismiss:hover { color: white; }
+        .btn-core.save-execute { background: #8952ff; color: white; }
+        .btn-core.save-execute:hover { background: #763fff; }
+
+        /* Viewer Unique Elements Box */
+        .view-emoji-container { font-size: 3.5em; text-align: center; margin-bottom: 15px; }
+        .view-title { font-size: 1.6em; font-weight: 700; color: white; text-align: center; margin: 0 0 15px 0; }
+        .view-desc { color: var(--text-stardust); font-size: 15px; line-height: 1.6; background: #111622; padding: 22px; border-radius: 12px; max-height: 350px; overflow-y: auto; margin-bottom: 20px; white-space: pre-wrap; word-break: break-word; }
+        .view-tags-label { font-size: 12px; font-weight: 700; color: #6b82a6; text-transform: uppercase; margin-bottom: 8px; display: block; }
 
         .zero-state-logs {
-            text-align: center; color: var(--text-stardust);
-            font-family: var(--font-mono); font-size: 14px;
-            grid-column: 1 / -1; padding: 80px 0;
-            text-transform: uppercase; letter-spacing: 2px;
+            text-align: center; color: #6b82a6; font-size: 1.1em;
+            margin-top: 40px; grid-column: 1 / -1; display: none;
         }
     </style>
 </head>
@@ -551,17 +556,12 @@
 
     <section class="hero-viewport">
         <div class="top-left-airplane"><i class="fa-regular fa-paper-plane"></i></div>
-        
-        <div class="bottom-left-burger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <div class="bottom-left-burger"><span></span><span></span><span></span></div>
 
-        <h1>Hello! I'm Aether</h1>
-        <p>Dynamic Terminal & Centralized Reminder Stream</p>
+        <h1>BA Reminders</h1>
+        <p>Operations Logistics & Centralized Information Terminal</p>
         
-        <a href="#dashboardDeck" class="btn-cosmic-pill">Explore Audit Parameters</a>
+        <a href="#dashboardDeck" class="btn-cosmic-pill">Explore Core Parameters</a>
 
         <div class="scroll-down-indicator">
             <span>Scroll Down</span>
@@ -576,303 +576,362 @@
         <div class="dashboard-header-flow">
             <div class="system-title-box">
                 <h2>Control Room Base</h2>
-                <span id="liveTimestamp">SYSTEM ONLINE // CORE MEMORY CONNECTION ACTIVATED</span>
+                <div class="subtitle" id="currentDate"></div>
             </div>
             
             <div class="action-cluster">
                 <div class="search-engine-pod">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="nebulaQueryInput" placeholder="Scan titles or description tags...">
+                    <input type="text" id="searchInput" placeholder="Search keywords (e.g. Bonus, Bank Wire)...">
                 </div>
-                <button class="btn-action-trigger" onclick="openConfigModal()">
-                    <i class="fas fa-plus"></i> Inject Node
+                <button class="btn-action-trigger" onclick="openModal()">
+                    <i class="fas fa-plus"></i> New Post
                 </button>
             </div>
         </div>
 
-        <div class="glass-ribbon" id="categoryRibbonTrack"></div>
+        <div class="glass-ribbon" id="categoriesContainer"></div>
 
-        <div class="matrix-grid" id="masterMatrixGrid"></div>
-        <div class="zero-state-logs" id="zeroNotice" style="display:none;">Data Index Complete // Zero records aligned with current criteria</div>
+        <div class="matrix-grid" id="remindersGrid"></div>
+        <div class="zero-state-logs" id="noResults">Oops!<br>No reminders found.</div>
     </main>
 
-    <div class="glass-overlay" id="recordConfigModal">
+    <div class="glass-overlay-mask" id="postModal">
         <div class="glass-modal-vault">
             <div class="modal-head-row">
-                <h2 id="configModalLabel">Inject New Record Payload</h2>
-                <button class="modal-close-trigger" onclick="closeConfigModal()"><i class="fas fa-times"></i></button>
+                <h2 id="modalTitle">Create New Post</h2>
+                <button class="modal-close-trigger" onclick="closeModal()"><i class="fas fa-times"></i></button>
             </div>
             
-            <form id="schemaStructureForm" onsubmit="commitNodePayload(event)">
-                <input type="hidden" id="nodePayloadId">
+            <form id="postForm" onsubmit="savePost(event)">
+                <input type="hidden" id="postId">
                 
                 <div class="input-block-node">
-                    <label>Title Vector Identifier</label>
-                    <input type="text" id="formTitleField" required placeholder="Assign record title description parameters...">
+                    <label>Title</label>
+                    <input type="text" id="postTitleInput" required placeholder="Enter reminder title...">
                 </div>
 
                 <div class="input-block-node">
-                    <label>Topic Core Icon Matrix</label>
-                    <select id="formEmojiField">
-                        <option value="🎰">Casino Terminal 🎰</option>
-                        <option value="⚽">Athletics Hub ⚽</option>
-                        <option value="🎁">Promotional Matrix 🎁</option>
-                        <option value="💡">General Info Core 💡</option>
-                        <option value="🎟️">Lottery Vector 🎟️</option>
-                        <option value="💳">Deposit Vault Interface 💳</option>
-                        <option value="💰">Payout Ledger Target 💰</option>
+                    <label>Assign Icon / Topic</label>
+                    <select id="postEmojiInput">
+                        <option value="💡">General Info 💡</option>
+                        <option value="🎁">Bonuses / Promos 🎁</option>
+                        <option value="⚽">Sports / Sportsbooks ⚽</option>
+                        <option value="🎰">Casino 🎰</option>
+                        <option value="🎟️">Lotto 🎟️</option>
+                        <option value="💳">Deposits 💳</option>
+                        <option value="💰">Money / Payouts 💰</option>
                     </select>
                 </div>
                 
                 <div class="input-block-node">
-                    <label>Payload Log Summary</label>
-                    <textarea id="formDescField" required placeholder="Log specific instructions or parameters..." style="height: 100px; resize: vertical;"></textarea>
+                    <label>Information</label>
+                    <textarea id="postDescInput" required placeholder="Enter the details..." style="height: 120px; resize: vertical;"></textarea>
                 </div>
                 
                 <div class="input-block-node">
-                    <label>Vector Route Channels (Select multiple)</label>
-                    <div class="checkbox-flex-matrix" id="formCheckboxCluster"></div>
+                    <label>Categories (Select at least one)</label>
+                    <div class="checkbox-grid-matrix" id="checkboxesContainer"></div>
                 </div>
 
                 <div class="modal-action-footer">
-                    <button type="button" class="btn-core dismiss" onclick="closeConfigModal()">Abort</button>
-                    <button type="submit" class="btn-core save-execute">Deploy Payload</button>
+                    <button type="button" class="btn-core dismiss" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-core save-execute">Save Post</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <div class="glass-overlay-mask" id="viewPostModal">
+        <div class="glass-modal-vault">
+            <div class="modal-head-row">
+                <h2>Reminder Details</h2>
+                <button class="modal-close-trigger" onclick="closeViewModal()"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="view-emoji-container" id="viewPostEmoji">💡</div>
+            <h3 class="view-title" id="viewPostTitle">Title Placeholder</h3>
+            <div class="view-desc" id="viewPostDesc">Full description details go here...</div>
+            
+            <span class="view-tags-label">Assigned Categories</span>
+            <div class="tag-row-box" id="viewPostTags" style="margin-bottom: 25px;"></div>
+            
+            <div class="modal-action-footer">
+                <button type="button" class="btn-core save-execute" style="background: #6a3aff;" onclick="closeViewModal()">Close View</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Baseline Database Core Seed (All your original files information)
-        const coreSeedCollection = [
-            { id: 1, title: "Bank Wire Verification Update", description: "ID and Utility Bill are no longer required for Bank Wire withdrawals. This streamlines processing times significantly for all regional requests.", categories: ["Payouts", "General Info"], emoji: "💰", reactions: { "👍": 12, "🔥: 4", "📌": 2, "👀": 9 } },
-            { id: 2, title: "Information Change Protocol", description: "An ID is required only for email address changes when the available balance is $150 or more. Make sure the documentation matches perfectly.", categories: ["General Info"], emoji: "💡", reactions: { "👍": 5, "🔥": 0, "📌": 21, "👀": 44 } },
-            { id: 3, title: "Bonus Request Exception Update", description: "No exception is needed for bonus requests when the qualifying deposit was made between 24 and 48 hours ago.", categories: ["Bonuses", "Deposits"], emoji: "🎁", reactions: { "👍": 19, "🔥": 33, "📌": 3, "👀": 14 } },
-            { id: 4, title: "Sportsbook Rules Framework", description: "All ongoing match dispute reviews require automated ticket matching keys. Do not process Manual Adjustments without approval.", categories: ["Sports"], emoji: "⚽", reactions: { "👍": 8, "🔥": 2, "📌": 7, "👀": 20 } },
-            { id: 5, title: "Casino Game Malfunction Matrix", description: "In the event of active slots visual freezes, guide users to execute an ecosystem hard-refresh cache process before escalating logs.", categories: ["Casino"], emoji: "🎰", reactions: { "👍": 14, "🔥": 12, "📌": 18, "👀": 35 } }
+        // Set Header Calendar Time Stream Logs
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('en-US', dateOptions).toUpperCase();
+
+        // Baseline Native Seeds Collection restored from original base parameters
+        const defaultReminders = [
+            { id: 1, title: "Bank Wire Verification Update", description: "ID and Utility Bill are no longer required for Bank Wire withdrawals. This streamlines processing times significantly for all regional requests.", categories: ["Payouts", "General Info"], emoji: "💰", reactions: { "👍": 2, "🔥": 1, "📌": 0, "👀": 0 } },
+            { id: 2, title: "Information Change Protocol", description: "An ID is required only for email address changes when the available balance is $150 or more. Make sure the documentation matches perfectly.", categories: ["General Info"], emoji: "💡", reactions: { "👍": 0, "🔥": 0, "📌": 3, "👀": 1 } },
+            { id: 3, title: "Bonus Request Exception Update", description: "No exception is needed for bonus requests when the qualifying deposit was made between 24 and 48 hours ago.", categories: ["Bonuses", "Deposits"], emoji: "🎁", reactions: { "👍": 1, "🔥": 4, "📌": 0, "👀": 2 } }
         ];
 
-        let reminders = JSON.parse(localStorage.getItem('ba_reminders')) || coreSeedCollection;
-        const networkCategories = ["Deposits", "Payouts", "General Info", "Bonuses", "Sports", "Casino"];
+        let reminders = JSON.parse(localStorage.getItem('ba_reminders')) || defaultReminders;
+        const catOptions = ["Deposits", "Payouts", "General Info", "Bonuses", "Sports", "Casino", "Lotto"];
+        const allCategoriesTab = ["All", ...catOptions];
         
-        let targetedCategoryChannel = "All";
-        let localFilterQueryString = "";
+        let currentCategory = "All";
+        let searchTerm = "";
 
-        const matrixGrid = document.getElementById('masterMatrixGrid');
-        const ribbonTrack = document.getElementById('categoryRibbonTrack');
-        const searchInput = document.getElementById('nebulaQueryInput');
-        const configModal = document.getElementById('recordConfigModal');
-        const zeroNotice = document.getElementById('zeroNotice');
+        const grid = document.getElementById('remindersGrid');
+        const categoriesContainer = document.getElementById('categoriesContainer');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+        const modal = document.getElementById('postModal');
+        const viewModal = document.getElementById('viewPostModal');
 
-        // Setup real-time system clock logs
-        const formattedDate = new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }).toUpperCase();
-        document.getElementById('liveTimestamp').innerText = `SYSTEM OPERATIONS TRACKER // LIVE CONNECTED // ${formattedDate}`;
-
-        function ignitionSequence() {
-            generateRibbonCells();
-            generateFormCheckboxes();
-            pipelineSynchronizeGrid();
+        function init() {
+            renderTabs();
+            renderCheckboxes();
+            renderReminders();
         }
 
-        function generateRibbonCells() {
-            ribbonTrack.innerHTML = '';
-            ["All", ...networkCategories].forEach(cat => {
-                const cell = document.createElement('button');
-                cell.className = `ribbon-cell ${cat === targetedCategoryChannel ? 'active' : ''}`;
-                cell.textContent = cat;
-                cell.onclick = () => {
-                    targetedCategoryChannel = cat;
-                    generateRibbonCells();
-                    pipelineSynchronizeGrid();
+        function renderTabs() {
+            categoriesContainer.innerHTML = '';
+            allCategoriesTab.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `ribbon-cell ${cat === currentCategory ? 'active' : ''}`;
+                btn.textContent = cat;
+                btn.onclick = () => {
+                    currentCategory = cat;
+                    renderTabs();
+                    renderReminders();
                 };
-                ribbonTrack.appendChild(cell);
+                categoriesContainer.appendChild(btn);
             });
         }
 
-        function generateFormCheckboxes() {
-            const wrapperBox = document.getElementById('formCheckboxCluster');
-            wrapperBox.innerHTML = '';
-            networkCategories.forEach(cat => {
-                wrapperBox.innerHTML += `
+        function renderCheckboxes() {
+            const container = document.getElementById('checkboxesContainer');
+            container.innerHTML = '';
+            catOptions.forEach(cat => {
+                container.innerHTML += `
                     <label class="cb-organic-label">
-                        <input type="checkbox" value="${cat}" class="payload-cb-node"> ${cat}
+                        <input type="checkbox" value="${cat}" class="cat-checkbox"> ${cat}
                     </label>
                 `;
             });
         }
 
-        function extractThemeClassMap(emoji) {
-            if (emoji === '⚽') return 'theme-sports';
-            if (emoji === '🎰' || emoji === '🎟️') return 'theme-casino';
-            if (emoji === '💰') return 'theme-money';
-            if (emoji === '💳' || emoji === '💡') return 'theme-general';
-            if (emoji === '🎁') return 'theme-bonus';
-            return '';
+        function getGradientClass(emoji) {
+            if (emoji === '⚽') return 'var(--gradient-sports)';
+            if (emoji === '🎰' || emoji === '🎟️') return 'var(--gradient-casino)';
+            if (emoji === '💰') return 'var(--gradient-money)';
+            if (emoji === '💳' || emoji === '💡') return 'var(--gradient-general)';
+            if (emoji === '🎁') return 'var(--gradient-bonus)';
+            return 'var(--gradient-general)';
         }
 
-        function pipelineSynchronizeGrid() {
-            matrixGrid.innerHTML = '';
-            let operationalStack = reminders;
+        function renderReminders() {
+            grid.innerHTML = '';
+            let filtered = reminders;
 
-            if (targetedCategoryChannel !== "All") {
-                operationalStack = operationalStack.filter(r => r.categories.includes(targetedCategoryChannel));
+            if (currentCategory !== "All") {
+                filtered = filtered.filter(item => item.categories.includes(currentCategory));
             }
 
-            if (localFilterQueryString.trim() !== "") {
-                const matchingLower = localFilterQueryString.toLowerCase();
-                operationalStack = operationalStack.filter(r => 
-                    r.title.toLowerCase().includes(matchingLower) || 
-                    r.description.toLowerCase().includes(matchingLower)
+            if (searchTerm.trim() !== "") {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(item => 
+                    item.title.toLowerCase().includes(term) || 
+                    item.description.toLowerCase().includes(term)
                 );
             }
 
-            if (operationalStack.length === 0) {
-                zeroNotice.style.display = 'block';
-                return;
-            }
-            zeroNotice.style.display = 'none';
-
-            [...operationalStack].reverse().forEach((record) => {
-                const cardNode = document.createElement('div');
-                const specificTheme = extractThemeClassMap(record.emoji);
-                cardNode.className = `quantum-card ${specificTheme}`;
-
-                const internalReacts = record.reactions || { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
-                const tagsListHtml = record.categories.map(c => `<span class="tag-pill-node">${c}</span>`).join('');
-                
-                const activeR1 = localStorage.getItem(`aether_react_${record.id}_👍`) ? 'active-state' : '';
-                const activeR2 = localStorage.getItem(`aether_react_${record.id}_🔥`) ? 'active-state' : '';
-                const activeR3 = localStorage.getItem(`aether_react_${record.id}_📌`) ? 'active-state' : '';
-                const activeR4 = localStorage.getItem(`aether_react_${record.id}_👀`) ? 'active-state' : '';
-
-                cardNode.innerHTML = `
-                    <div class="card-ambient-node">
-                        <button class="card-utility-btn" onclick="editPayloadConfig(${record.id})" title="Adjust Parameters"><i class="fas fa-sliders-h"></i></button>
-                        <button class="card-utility-btn danger-wipe" onclick="wipeOperationalNode(${record.id})" title="Purge Record"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                    <div class="card-icon-hub">${record.emoji || '💡'}</div>
-                    <h3>${record.title}</h3>
-                    <p>${record.description}</p>
+            if (filtered.length === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+                [...filtered].reverse().forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'quantum-card';
                     
-                    <div class="reaction-row">
-                        <button class="pill-trigger ${activeR1}" onclick="triggerAtomicReaction(${record.id}, '👍')">
-                            <span>👍</span> <span>${internalReacts['👍'] || 0}</span>
-                        </button>
-                        <button class="pill-trigger ${activeR2}" onclick="triggerAtomicReaction(${record.id}, '🔥')">
-                            <span>🔥</span> <span>${internalReacts['🔥'] || 0}</span>
-                        </button>
-                        <button class="pill-trigger ${activeR3}" onclick="triggerAtomicReaction(${record.id}, '📌')">
-                            <span>📌</span> <span>${internalReacts['📌'] || 0}</span>
-                        </button>
-                        <button class="pill-trigger ${activeR4}" onclick="triggerAtomicReaction(${record.id}, '👀')">
-                            <span>👀</span> <span>${internalReacts['👀'] || 0}</span>
-                        </button>
-                    </div>
-                    <div class="tag-row-box">${tagsListHtml}</div>
-                `;
-                matrixGrid.appendChild(cardNode);
-            });
+                    card.onclick = (e) => {
+                        if (!e.target.closest('.card-ambient-actions') && !e.target.closest('.reaction-row-wrapper')) {
+                            openViewModal(item.id);
+                        }
+                    };
+                    
+                    const tagsHtml = item.categories.map(cat => `<span class="tag-pill-node">${cat}</span>`).join('');
+                    const postReactions = item.reactions || { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
+                    const itemEmoji = item.emoji || "💡";
+                    const backgroundGradientStyle = getGradientClass(itemEmoji);
+
+                    const userReacted1 = localStorage.getItem(`reacted_${item.id}_👍`) ? 'active-state' : '';
+                    const userReacted2 = localStorage.getItem(`reacted_${item.id}_🔥`) ? 'active-state' : '';
+                    const userReacted3 = localStorage.getItem(`reacted_${item.id}_📌`) ? 'active-state' : '';
+                    const userReacted4 = localStorage.getItem(`reacted_${item.id}_👀`) ? 'active-state' : '';
+
+                    card.innerHTML = `
+                        <div class="card-visual-header" style="background: ${backgroundGradientStyle}">
+                            <div class="card-ambient-actions">
+                                <button class="card-utility-btn" onclick="editPost(${item.id}); event.stopPropagation();" title="Edit Post"><i class="fas fa-pen"></i></button>
+                                <button class="card-utility-btn danger-wipe" onclick="deletePost(${item.id}); event.stopPropagation();" title="Delete Post"><i class="fas fa-trash"></i></button>
+                            </div>
+                            <div class="big-emoji">${itemEmoji}</div>
+                        </div>
+                
+                        <div class="card-inner-body">
+                            <h3>${item.title}</h3>
+                            <p>${item.description}</p>
+                            
+                            <div class="reaction-row-wrapper">
+                                <button class="pill-trigger-btn ${userReacted1}" onclick="addReaction(${item.id}, '👍'); event.stopPropagation();">
+                                    <span>👍</span> <span class="rc-count">${postReactions['👍'] || 0}</span>
+                                </button>
+                                <button class="pill-trigger-btn ${userReacted2}" onclick="addReaction(${item.id}, '🔥'); event.stopPropagation();">
+                                    <span>🔥</span> <span class="rc-count">${postReactions['🔥'] || 0}</span>
+                                </button>
+                                <button class="pill-trigger-btn ${userReacted3}" onclick="addReaction(${item.id}, '📌'); event.stopPropagation();">
+                                    <span>📌</span> <span class="rc-count">${postReactions['📌'] || 0}</span>
+                                </button>
+                                <button class="pill-trigger-btn ${userReacted4}" onclick="addReaction(${item.id}, '👀'); event.stopPropagation();">
+                                    <span>👀</span> <span class="rc-count">${postReactions['👀'] || 0}</span>
+                                </button>
+                            </div>
+
+                            <div class="tag-row-box">${tagsHtml}</div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
         }
 
-        function triggerAtomicReaction(id, emojiKey) {
+        function addReaction(id, emojiKey) {
             const index = reminders.findIndex(r => r.id === id);
             if (index !== -1) {
                 if (!reminders[index].reactions) {
                     reminders[index].reactions = { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
                 }
+                
+                const trackingKey = `reacted_${id}_${emojiKey}`;
+                const userAlreadyReacted = localStorage.getItem(trackingKey);
 
-                const reactionStateKey = `aether_react_${id}_${emojiKey}`;
-                if (localStorage.getItem(reactionStateKey)) {
+                if (userAlreadyReacted) {
                     reminders[index].reactions[emojiKey] = Math.max(0, (reminders[index].reactions[emojiKey] || 1) - 1);
-                    localStorage.removeItem(reactionStateKey);
+                    localStorage.removeItem(trackingKey);
                 } else {
                     reminders[index].reactions[emojiKey] = (reminders[index].reactions[emojiKey] || 0) + 1;
-                    localStorage.setItem(reactionStateKey, 'true');
+                    localStorage.setItem(trackingKey, 'true');
                 }
-
-                saveStateToVault();
-                pipelineSynchronizeGrid();
+                
+                saveData();
+                renderReminders();
             }
         }
 
         searchInput.addEventListener('input', (e) => {
-            localFilterQueryString = e.target.value;
-            pipelineSynchronizeGrid();
+            searchTerm = e.target.value;
+            renderReminders();
         });
 
-        function openConfigModal() {
-            document.getElementById('schemaStructureForm').reset();
-            document.getElementById('nodePayloadId').value = '';
-            document.getElementById('formEmojiField').value = '🎰';
-            document.getElementById('configModalLabel').innerText = "Inject New Record Payload";
-            document.querySelectorAll('.payload-cb-node').forEach(cb => cb.checked = false);
-            configModal.classList.add('active');
-        }
-
-        function closeConfigModal() { configModal.classList.remove('active'); }
-
-        function editPayloadConfig(id) {
-            const record = reminders.find(r => r.id === id);
-            if (record) {
-                document.getElementById('nodePayloadId').value = record.id;
-                document.getElementById('formTitleField').value = record.title;
-                document.getElementById('formDescField').value = record.description;
-                document.getElementById('formEmojiField').value = record.emoji || '💡';
-                document.getElementById('configModalLabel').innerText = "Adjust Record Matrix Schema";
-                
-                document.querySelectorAll('.payload-cb-node').forEach(cb => {
-                    cb.checked = record.categories.includes(cb.value);
-                });
-                configModal.classList.add('active');
-            }
-        }
-
-        function wipeOperationalNode(id) {
-            if (confirm("Permanently delete this reminder from the master records base?")) {
-                reminders = reminders.filter(r => r.id !== id);
-                ['👍', '🔥', '📌', '👀'].forEach(k => localStorage.removeItem(`aether_react_${id}_${k}`));
-                saveStateToVault();
-                pipelineSynchronizeGrid();
-            }
-        }
-
-        function commitNodePayload(event) {
-            event.preventDefault();
-            const id = document.getElementById('nodePayloadId').value;
-            const title = document.getElementById('formTitleField').value;
-            const description = document.getElementById('formDescField').value;
-            const emoji = document.getElementById('formEmojiField').value;
+        function openModal() {
+            document.getElementById('postForm').reset();
+            document.getElementById('postId').value = '';
+            document.getElementById('postEmojiInput').value = '💡';
+            document.getElementById('modalTitle').innerText = "Create New Post";
             
-            const checksList = document.querySelectorAll('.payload-cb-node:checked');
-            const targetCategories = Array.from(checksList).map(cb => cb.value);
+            const checkboxes = document.querySelectorAll('.cat-checkbox');
+            checkboxes.forEach(cb => cb.checked = false);
+            
+            modal.classList.add('active');
+        }
 
-            if (targetCategories.length === 0) {
-                alert("Routing Failure: Link this record to at least one dynamic category channel.");
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        function openViewModal(id) {
+            const post = reminders.find(r => r.id === id);
+            if (post) {
+                document.getElementById('viewPostEmoji').innerText = post.emoji || '💡';
+                document.getElementById('viewPostTitle').innerText = post.title;
+                document.getElementById('viewPostDesc').innerText = post.description;
+                
+                const tagsContainer = document.getElementById('viewPostTags');
+                tagsContainer.innerHTML = post.categories.map(cat => `<span class="tag-pill-node">${cat}</span>`).join('');
+                
+                viewModal.classList.add('active');
+            }
+        }
+
+        function closeViewModal() {
+            viewModal.classList.remove('active');
+        }
+
+        function editPost(id) {
+            const post = reminders.find(r => r.id === id);
+            if(post) {
+                document.getElementById('postId').value = post.id;
+                document.getElementById('postTitleInput').value = post.title;
+                document.getElementById('postDescInput').value = post.description;
+                document.getElementById('postEmojiInput').value = post.emoji || '💡';
+                document.getElementById('modalTitle').innerText = "Edit Post";
+                
+                const checkboxes = document.querySelectorAll('.cat-checkbox');
+                checkboxes.forEach(cb => {
+                    cb.checked = post.categories.includes(cb.value);
+                });
+                modal.classList.add('active');
+            }
+        }
+
+        function deletePost(id) {
+            if(confirm("Are you sure you want to delete this reminder?")) {
+                reminders = reminders.filter(r => r.id !== id);
+                ['👍', '🔥', '📌', '👀'].forEach(k => localStorage.removeItem(`reacted_${id}_${k}`));
+                saveData();
+                renderReminders();
+            }
+        }
+
+        function savePost(event) {
+            event.preventDefault();
+            const id = document.getElementById('postId').value;
+            const title = document.getElementById('postTitleInput').value;
+            const description = document.getElementById('postDescInput').value;
+            const emoji = document.getElementById('postEmojiInput').value;
+            
+            const checkboxes = document.querySelectorAll('.cat-checkbox:checked');
+            const selectedCategories = Array.from(checkboxes).map(cb => cb.value);
+
+            if (selectedCategories.length === 0) {
+                alert("Please select at least one category.");
                 return;
             }
 
             if (id) {
-                const idx = reminders.findIndex(r => r.id == id);
-                const historicReacts = reminders[idx].reactions || { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
-                reminders[idx] = { id: parseInt(id), title, description, categories: targetCategories, emoji, reactions: historicReacts };
+                const index = reminders.findIndex(r => r.id == id);
+                const existingReactions = reminders[index].reactions || { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 };
+                reminders[index] = { id: parseInt(id), title, description, categories: selectedCategories, emoji, reactions: existingReactions };
             } else {
+                const newId = Date.now();
                 reminders.push({ 
-                    id: Date.now(), title, description, categories: targetCategories, emoji, 
+                    id: newId, title, description, categories: selectedCategories, emoji, 
                     reactions: { "👍": 0, "🔥": 0, "📌": 0, "👀": 0 } 
                 });
             }
 
-            saveStateToVault();
-            closeConfigModal();
-            pipelineSynchronizeGrid();
+            saveData();
+            closeModal();
+            renderReminders();
         }
 
-        function saveStateToVault() {
+        function saveData() {
             localStorage.setItem('ba_reminders', JSON.stringify(reminders));
         }
 
-        // Initialize Engine Core
-        ignitionSequence();
+        // Ignition Central Core Engine
+        init();
     </script>
 </body>
 </html>
